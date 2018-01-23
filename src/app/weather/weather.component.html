@@ -1,0 +1,21 @@
+<h1>Weather forecasting city wise</h1>
+<br>
+<table class="table">
+  <thead><!--table head-->
+  <tr>
+    <th>City</th>
+    <th>Weather</th>
+    <th>Sunrise</th>
+    <th>Sunset</th>
+    <th>Temp</th>
+  </tr>
+  </thead>
+  <tbody *ngFor="let item of detail"><!--table body-->
+    <tr id="getData"><td id="col1">{{item[0] }}</td><td>{{item[1]}}</td><td>{{item[2]}}</td><td>{{item[3]}}</td><td>{{item[4]}}</td></tr>
+    <tr id="tPanel" class="header"><td colspan="5" style="text-align:center; font-weight:700;">{{item[0]+" "}}Day Wise Weather Report</td></tr>
+    <tr id="tPanel"><th>Date</th><th>Weather</th><th>Temporature</th><th>Pressure</th><th>Extra</th></tr>
+    <tr id="tPanel"><td>data 1</td><td>data 2</td><td>data 3</td><td>data 4</td><td>data 5</td></tr>
+    <tr id="tPanel"><td>data 1</td><td>data 2</td><td>data 3</td><td>data 4</td><td>data 5</td></tr>
+    <tr id="tPanel"><td>data 1</td><td>data 2</td><td>data 3</td><td>data 4</td><td>data 5</td></tr>
+  </tbody>
+</table>
