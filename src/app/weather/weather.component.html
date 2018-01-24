@@ -1,5 +1,6 @@
 <h1>Weather forecasting city wise</h1>
 <br>
+<!-- <p>{{detail2}}</p> -->
 <table class="table">
   <thead><!--table head-->
   <tr>
@@ -10,12 +11,15 @@
     <th>Temp</th>
   </tr>
   </thead>
-  <tbody *ngFor="let item of detail"><!--table body-->
-    <tr id="getData"><td id="col1">{{item[0] }}</td><td>{{item[1]}}</td><td>{{item[2]}}</td><td>{{item[3]}}</td><td>{{item[4]}}</td></tr>
+  <tbody *ngFor="let item of detail1"><!--table body with parent record-->
+    <tr id="getData"><td>{{item[0]}}</td><td>{{item[1]}}</td><td>{{item[2]}}</td><td>{{item[3]}}</td><td>{{item[4]}}</td></tr>
+    <!--child record-->
     <tr id="tPanel" class="header"><td colspan="5" style="text-align:center; font-weight:700;">{{item[0]+" "}}Day Wise Weather Report</td></tr>
-    <tr id="tPanel"><th>Date</th><th>Weather</th><th>Temporature</th><th>Pressure</th><th>Extra</th></tr>
-    <tr id="tPanel"><td>data 1</td><td>data 2</td><td>data 3</td><td>data 4</td><td>data 5</td></tr>
-    <tr id="tPanel"><td>data 1</td><td>data 2</td><td>data 3</td><td>data 4</td><td>data 5</td></tr>
-    <tr id="tPanel"><td>data 1</td><td>data 2</td><td>data 3</td><td>data 4</td><td>data 5</td></tr>
-  </tbody>
+    <tr id="tPanel"><th>Date</th><th>Weather</th><th>Temporature</th><th>Min_temp</th><th>Pressure</th></tr>
+    <tr id="tData" *ngFor="let items of detail2">
+      <td>{{items[0]}}</td><td>{{items[1]}}</td><td>{{items[2]}}</td><td>{{items[3]}}</td><td>{{items[4]}}</td>
+    </tr>
+    
+    </tbody>
 </table>
+
