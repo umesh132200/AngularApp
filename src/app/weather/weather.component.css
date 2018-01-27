@@ -3,10 +3,10 @@ h1{
     color:blue;
 }
 #tPanel {
-    /*display: none;*/
+    display: none;
     background-color:yellowgreen;
 }
 #tData {
-    
+    display: none;
     background-color: yellow
 }

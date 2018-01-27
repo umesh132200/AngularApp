@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import { forkJoin } from "rxjs/observable/forkJoin";
-//import {parseString} from "xml2js";
-//import * as x2js  from 'xml2js';
-declare var $:any;
+import { Observable } from 'rxjs';
+import { forkJoin } from 'rxjs/observable/forkJoin';
+import { DataFinder } from './datafinder';
 
+
+declare var $:any;
 @Component({
   selector: 'app-weather',
   templateUrl: './weather.component.html',
@@ -13,7 +13,7 @@ declare var $:any;
 })
 export class WeatherComponent implements OnInit {
 
-  constructor(private httpClient:HttpClient) { }
+  constructor(private httpClient:HttpClient, private dataFinder:DataFinder) { }
   arr:any[];
   detail1:any[]=[];
   detail2:any[]=[];
@@ -25,18 +25,52 @@ export class WeatherComponent implements OnInit {
   tableData:any[] = new Array();
   tdata:any[] = new Array();  
   weatherData:any='';
-  cityWiseData:any='';
+  cityWiseData:any=''; 
+  id = [];
+  name = [];
+  country = [];
+  coord = [];
+  x2js = new X2JS();
+  results = [];
+  cityData = [];
+  arrData =[];
+  searchCity(){
+    let city:string = $('#city').val();
+    var searchField = "name";
+    this.dataFinder.getJSONDataAsync("./assets/data/city.list.json").then(data => {
+    for (var i=0 ; i < data.length ; i++)
+    {
+        if (data[i]['name'] == city) {
+          for(let x in data[i]){
+            if(data[i][x]!=data[i].coord)
+            {
+              this.results.push(data[i][x]);     
+            }
+          }
+                for(let y in data[i].coord)
+             { 
+              this.results.push(data[i].coord[y]);    
+            }
+            this.arrData.push(this.results);
+        }
+          
+
+    } 
+        this.cityData = this.arrData;
+        console.log(this.cityData);
+    });
+  }
 
   ngOnInit() {
-    let x2js = new X2JS();
-    let cityWeather = this.httpClient.get('http://api.openweathermap.org/data/2.5/find?lat=27.5&lon=77.5&cnt=5&mode=xml&appid=a71be9c0523a5505e58265eb91dbca4f',{responseType:"text"});
-    let dayWeather = this.httpClient.get('https://cors-anywhere.herokuapp.com/http://samples.openweathermap.org/data/2.5/forecast?id=524901&appid=b6907d289e10d714a6e88b30761fae22');
+   
+    let cityWeather = this.httpClient.get('http://api.openweathermap.org/data/2.5/find?lat=22.0&lon=82.6&cnt=40&mode=xml&appid=79cce9d1cd2fb9e584cca5a598f53932',{responseType:"text"});
+    let dayWeather = this.httpClient.get('https://cors-anywhere.herokuapp.com/http://samples.openweathermap.org/data/2.5/forecast?id=1274837&appid=79cce9d1cd2fb9e584cca5a598f53932');
    
     forkJoin([cityWeather,dayWeather]).subscribe(
     (response =>{
       //Convert Xml string to JSON
-      this.weatherData = x2js.xml_str2json(response[0]);  
-     
+      this.weatherData = this.x2js.xml_str2json(response[0]);  
+    
       //To access all array item for city weather
       this.weatherData.cities.list.item.forEach((item, i:number) => {
          this.cityName = this.weatherData.cities.list.item[i].city._name;
@@ -61,16 +95,14 @@ export class WeatherComponent implements OnInit {
         this.tdata.push(arr);
       });
        this.detail2 = this.tdata;
-        console.log(this.tdata);
-        //console.log(this.weatherData);
-        //console.log(this.cityWiseData);
+        //console.log(this.tdata);
     })  
     );
 
   //To get table row description
   $(document).on("click","tr#getData", function(e){
     //alert(e.target.innerHTML);
-      $(this).siblings().slideToggle(20);
+    $(this).siblings().slideToggle(20);
  });
   }
 

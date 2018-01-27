@@ -1,7 +1,11 @@
 <h1>Weather forecasting city wise</h1>
 <br>
-<!-- <p>{{detail2}}</p> -->
-<table class="table">
+<input type="search" id="city">
+<button (click)="searchCity()">Search</button>
+<br>
+        <p>{{cityData}}</p>   
+<br>
+<table class="table table-hover">
   <thead><!--table head-->
   <tr>
     <th>City</th>
