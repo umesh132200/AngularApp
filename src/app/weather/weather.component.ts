@@ -38,26 +38,23 @@ export class WeatherComponent implements OnInit {
     let city:string = $('#city').val();
     var searchField = "name";
     this.dataFinder.getJSONDataAsync("./assets/data/city.list.json").then(data => {
-    for (var i=0 ; i < data.length ; i++)
-    {
+    for (var i=0 ; i < data.length ; i++) {
         if (data[i]['name'] == city) {
-          for(let x in data[i]){
-            if(data[i][x]!=data[i].coord)
-            {
-              this.results.push(data[i][x]);     
+            if(data[i].id && data[i].name && data[i].country && data[i].coord.lon && data[i].coord.lat) {
+              let id = data[i].id;
+              let name = data[i].name;
+              let country = data[i].country;
+              let lon = data[i].coord.lon;
+              let lat = data[i].coord.lat;
+              this.arrData = [id, name, country, lon, lat];
+              this.results.push(this.arrData);
             }
-          }
-                for(let y in data[i].coord)
-             { 
-              this.results.push(data[i].coord[y]);    
-            }
-            this.arrData.push(this.results);
-        }
-          
-
-    } 
-        this.cityData = this.arrData;
-        console.log(this.cityData);
+            
+       }
+        
+    }
+    this.cityData = this.results
+    console.log(this.cityData);  
     });
   }
 

@@ -24,7 +24,7 @@ export class DataFinder {
         .subscribe(
           res => {
             if (!res) {
-              reject("Failed with status: " + res + "\nTrying to find fil at " + filePath);
+              reject("Failed with status: " + res  + "\nTrying to find fil at " + filePath);
             }
 
             var jsonRes = res.toString();
