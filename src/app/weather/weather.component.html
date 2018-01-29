@@ -1,9 +1,11 @@
 <h1>Weather forecasting city wise</h1>
 <br>
-<input type="search" id="city">
+<input type="search" id="city" placeholder="Search city">
 <button (click)="searchCity()">Search</button>
 <br>
-        <p>{{cityData}}</p>   
+<div *ngFor="let item of cityData;">
+  <p (click)="onSelect(item)">{{item[1]+", ["+item[2]+"]  lon: "+item[3]+", lat: "+item[4]}}</p> 
+</div>       
 <br>
 <table class="table table-hover">
   <thead><!--table head-->

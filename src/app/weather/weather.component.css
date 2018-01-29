@@ -6,7 +6,23 @@ h1{
     display: none;
     background-color:yellowgreen;
 }
+#getData{
+    cursor:pointer;
+}
 #tData {
     display: none;
-    background-color: yellow
+    background-color: yellow;
+    cursor: pointer; 
+}
+p{
+    border: 1px solid #000000;
+    padding: 15px 15px;
+    float: left;
+    margin: 5px 5px;
+    cursor: pointer; 
+}
+
+p:hover{
+   border-color: blue;
+   
 }
