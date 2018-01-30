@@ -8,9 +8,9 @@ body{
     background-repeat: no-repeat;
 }
 
-/* @media screen and (min-width: 960px) {
-    html {
-        margin-left: calc(100vw - 100%);
-        margin-right: 0;
+@media screen and (max-width: 480px) {
+    body{
+        background-color: antiquewhite;
+        background-image: none;
     }
-} */
+} 
