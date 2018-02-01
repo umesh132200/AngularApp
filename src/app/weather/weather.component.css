@@ -15,11 +15,14 @@ h1{
     cursor: pointer; 
 }
 p{
-    border: 1px solid #000000;
+    border: 2px solid #000000;
+    background-color: aliceblue;
     padding: 15px 15px;
-    float: left;
     margin: 5px 5px;
     cursor: pointer; 
+    float: left;
+    font-weight: 600;
+    
 }
 
 p:hover{

@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { forkJoin } from 'rxjs/observable/forkJoin'; //used to get multiple response from different url.
 import { DataFinder } from './datafinder'; //this file contaile js promise to get city record.
+import * as xml2js from 'xml2js';
 
 declare var $:any;
 @Component({
@@ -30,7 +31,6 @@ export class WeatherComponent implements OnInit {
   name = [];
   country = [];
   coord = [];
-  x2js = new X2JS();
   results = [];
   cityData = [];
   arrData =[];
@@ -45,22 +45,28 @@ export class WeatherComponent implements OnInit {
   getWeather() {
     this.tableData =[];
     this.mulResponse = [];
-    let cityWeather = this.httpClient.get('http://api.openweathermap.org/data/2.5/find?lat='+this.toLat+'&lon='+this.toLon+'&cnt=20&mode=xml&appid=79cce9d1cd2fb9e584cca5a598f53932',{responseType:"text"});
-    forkJoin([cityWeather])
-    .subscribe((response =>{
-      this.weatherData = this.x2js.xml_str2json(response[0]);
-      this.weatherData.cities.list.item.forEach((item, i:number) => {
-         this.cityIds = this.weatherData.cities.list.item[i].city._id;
-         this.cityName = this.weatherData.cities.list.item[i].city._name;
-         this.weatherDes = this.weatherData.cities.list.item[i].weather._value;
-         this.sunRise = this.weatherData.cities.list.item[i].city.sun._rise;
-         this.sunSet = this.weatherData.cities.list.item[i].city.sun._set;
-         this.temp = this.weatherData.cities.list.item[i].temperature._value;
+    this.httpClient.get('http://api.openweathermap.org/data/2.5/find?lat='+this.toLat+'&lon='+this.toLon+'&cnt=40&mode=xml&appid=79cce9d1cd2fb9e584cca5a598f53932',{responseType:"text"})
+    .map(response => {
+      var jsRes:any;
+      xml2js.parseString( response, function (err, result) {
+      jsRes = result; 
+    });
+    return jsRes;
+    })
+    .subscribe(result => {
+      this.weatherData = result;
+      this.weatherData.cities.list[0].item.forEach((item, i:number) => {
+         this.cityIds = this.weatherData.cities.list[0].item[i].city[0].$.id;
+         this.cityName = this.weatherData.cities.list[0].item[i].city[0].$.name;
+         this.weatherDes = this.weatherData.cities.list[0].item[i].weather[0].$.value;
+         this.sunRise = this.weatherData.cities.list[0].item[i].city[0].sun[0].$.rise;
+         this.sunSet = this.weatherData.cities.list[0].item[i].city[0].sun[0].$.set;
+         this.temp = this.weatherData.cities.list[0].item[i].temperature[0].$.value;
          this.arr =[this.cityIds, this.cityName, this.weatherDes, this.sunRise, this.sunSet, this.temp];
          this.tableData.push(this.arr);  
       });
       this.detail1= this.tableData;
-    }) 
+    }
   )
  };
   /**This method is used to get "5 day/ 3 hour weather" data of selected city
@@ -97,8 +103,8 @@ export class WeatherComponent implements OnInit {
               let id = data[i].id;
               let name = data[i].name;
               let country = data[i].country;
-              let lon = data[i].coord.lon;
-              let lat = data[i].coord.lat;
+              let lon:string = data[i].coord.lon.toFixed(4);
+              let lat:string = data[i].coord.lat.toFixed(4);
               this.arrData = [id, name, country, lon, lat];
               this.results.push(this.arrData);
           }           
@@ -114,8 +120,10 @@ export class WeatherComponent implements OnInit {
   onSelect(selectData){
    this.selectData = selectData;
    this.cityId = this.selectData[0];
-   this.toLon = this.selectData[3].toFixed(1);
-   this.toLat = this.selectData[4].toFixed(1);
+   let lon:string = parseFloat(this.selectData[3]).toFixed(4);
+   let lat:string = parseFloat(this.selectData[4]).toFixed(4);
+   this.toLon = parseFloat(lon);
+   this.toLat = parseFloat(lat);
    this.getWeather();
 
   }

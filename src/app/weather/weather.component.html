@@ -1,10 +1,17 @@
-<h1>Weather forecasting city wise</h1>
-<br>
-<input type="search" id="city" placeholder="Search city">
-<button (click)="searchCity()">Search</button>
+<div class="container">
+  <h1>Weather forecasting city wise</h1>
+  <hr><br>
+<div class="row">
+  <div class="col-xs-12 col-sm-3 col-lg-3">
+    <input type="search" id="city" class="form-control col-lg-4" placeholder="Search city">
+  </div>
+  <div class="col-xs-4 col-sm-2 col-lg-2">
+    <button (click)="searchCity()" class="btn btn-primary form-control">Search</button>
+  </div>
+</div>
 <br>
 <div *ngFor="let item of cityData;">
-  <p (click)="onSelect(item)">{{item[1]+", ["+item[2]+"]  lon: "+item[3]+", lat: "+item[4]}}</p> 
+  <p (click)="onSelect(item)" title="Click to get Weather">{{item[1]+", ["+item[2]+"]  lon: "+item[3]+", lat: "+item[4]}}</p> 
 </div>       
 <br>
 <table class="table table-hover">
@@ -18,7 +25,7 @@
   </tr>
   </thead>
   <tbody *ngFor="let item of detail1"><!--table body with parent record-->
-    <tr id="getData" (click)="getDayWise(item)"><td>{{item[1]}}</td><td>{{item[2]}}</td><td>{{item[3]}}</td><td>{{item[4]}}</td><td>{{item[5]}}</td></tr>
+    <tr id="getData" (click)="getDayWise(item)" title="Click to get next 5 day weather"><td>{{item[1]}}</td><td>{{item[2]}}</td><td>{{item[3]}}</td><td>{{item[4]}}</td><td>{{item[5]}}</td></tr>
     <!--child record-->
     <tr id="tPanel" class="header"><td colspan="5" style="text-align:center; font-weight:700;">{{item[1]+" "}}Day Wise Weather Report</td></tr>
     <tr id="tPanel"><th>Date</th><th>Weather</th><th>Temporature</th><th>Min_temp</th><th>Pressure</th></tr>
@@ -28,4 +35,5 @@
     
     </tbody>
 </table>
+</div>
 

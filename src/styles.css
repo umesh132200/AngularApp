@@ -6,11 +6,13 @@ body{
     background-attachment: fixed;
     background-size: 100%;
     background-repeat: no-repeat;
+    padding-top: 70px;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 768px) {
     body{
         background-color: antiquewhite;
         background-image: none;
+        padding-top:100px;
     }
 } 
