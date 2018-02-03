@@ -45,7 +45,7 @@ export class WeatherComponent implements OnInit {
   getWeather() {
     this.tableData =[];
     this.mulResponse = [];
-    this.httpClient.get('http://api.openweathermap.org/data/2.5/find?lat='+this.toLat+'&lon='+this.toLon+'&cnt=40&mode=xml&appid=79cce9d1cd2fb9e584cca5a598f53932',{responseType:"text"})
+    this.httpClient.get('https://api.openweathermap.org/data/2.5/find?lat='+this.toLat+'&lon='+this.toLon+'&cnt=40&mode=xml&appid=79cce9d1cd2fb9e584cca5a598f53932',{responseType:"text"})
     .map(response => {
       var jsRes:any;
       xml2js.parseString( response, function (err, result) {
@@ -73,7 +73,7 @@ export class WeatherComponent implements OnInit {
    * and getting data from openWeatherMap api. 
    */
   getDayWise(item){
-    this.httpClient.get('https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/forecast?id='+item[0]+'&appid=79cce9d1cd2fb9e584cca5a598f53932') 
+    this.httpClient.get('https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/forecast?id='+item[0]+'&appid=79cce9d1cd2fb9e584cca5a598f53932') 
     .subscribe(data => {
       this.cityWiseData  = data;  
       this.cityWiseData.list.forEach((items, j:number)=>{

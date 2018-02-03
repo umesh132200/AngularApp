@@ -1,31 +1,31 @@
-h1{
-    text-align: center;
-    color:blue;
+h1 {
+  text-align: center;
 }
 #tPanel {
-    display: none;
-    background-color:yellowgreen;
+  display: none;
+  background-color:yellowgreen;
 }
-#getData{
-    cursor:pointer;
+#getData {
+  cursor:pointer;
 }
 #tData {
-    display: none;
-    background-color: yellow;
-    cursor: pointer; 
+  display: none;
+  background-color: yellow;
+  cursor: pointer; 
 }
-p{
-    border: 2px solid #000000;
-    background-color: aliceblue;
-    padding: 15px 15px;
-    margin: 5px 5px;
-    cursor: pointer; 
-    float: left;
-    font-weight: 600;
-    
+p {
+  border: 2px solid gray;
+  background-color: white;
+  padding: 15px 15px;
+  margin: 5px 5px;
+  cursor: pointer; 
+  float: left;
+  font-weight: 600;   
 }
-
-p:hover{
-   border-color: blue;
-   
+p:hover {
+  border-color:black; 
+}
+table{
+    background-color: white;
+    border-radius: 10px;
 }

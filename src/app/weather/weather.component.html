@@ -1,12 +1,12 @@
 <div class="container">
-  <h1>Weather forecasting city wise</h1>
+  <h1>Weather Forecasting</h1>
   <hr><br>
 <div class="row">
-  <div class="col-xs-12 col-sm-3 col-lg-3">
-    <input type="search" id="city" class="form-control col-lg-4" placeholder="Search city">
+  <div class="col-xs-8 col-sm-3 col-lg-3">
+    <input type="search" id="city" class="form-control col-lg-4 input-lg" placeholder="Search city">
   </div>
   <div class="col-xs-4 col-sm-2 col-lg-2">
-    <button (click)="searchCity()" class="btn btn-primary form-control">Search</button>
+    <button (click)="searchCity()" class="btn btn-primary form-control input-lg">Search</button>
   </div>
 </div>
 <br>
@@ -14,8 +14,8 @@
   <p (click)="onSelect(item)" title="Click to get Weather">{{item[1]+", ["+item[2]+"]  lon: "+item[3]+", lat: "+item[4]}}</p> 
 </div>       
 <br>
-<table class="table table-hover">
-  <thead><!--table head-->
+<table class="table table-hover table-bordered table-condensed">
+  <thead ><!--table head-->
   <tr>
     <th>City</th>
     <th>Weather</th>
@@ -32,7 +32,6 @@
     <tr id="tData" *ngFor="let items of detail2">
       <td>{{items[0]}}</td><td>{{items[1]}}</td><td>{{items[2]}}</td><td>{{items[3]}}</td><td>{{items[4]}}</td>
     </tr>
-    
     </tbody>
 </table>
 </div>

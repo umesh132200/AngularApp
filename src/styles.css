@@ -1,18 +1,15 @@
-/* You can add global styles to this file, and also import other style files */
-
-body{
-    background-image:url("./assets/images/backcover.jpg");
-    background-position: center center;
-    background-attachment: fixed;
-    background-size: 100%;
-    background-repeat: no-repeat;
-    padding-top: 70px;
+body {
+  background-image:url("./assets/images/backcover.jpg");
+  background-position: center center;
+  background-attachment: fixed;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  padding-top: 70px;
 }
-
 @media screen and (max-width: 768px) {
-    body{
-        background-color: antiquewhite;
-        background-image: none;
-        padding-top:100px;
-    }
+body {
+  background-color: white;
+  background-image: none;
+  padding-top:100px;
+ }
 } 
