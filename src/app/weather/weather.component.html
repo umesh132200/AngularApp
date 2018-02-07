@@ -1,5 +1,5 @@
 <div class="container">
-  <h1>Weather Forecasting</h1>
+  <!-- <h1>Weather Forecasting</h1> -->
   <hr><br>
 <div class="row">
   <form [formGroup]="form" (ngSubmit)="searchCity(form.value)"  >
@@ -12,6 +12,8 @@
   </div>
   </form>
 </div>
+<br>
+<span class="error">{{msg}}</span>
 <br>
 <div *ngFor="let item of cityData;">
   <p (click)="onSelect(item)" title="Click to get Weather">{{item[1]+", ["+item[2]+"]  lon: "+item[3]+", lat: "+item[4]}}</p> 

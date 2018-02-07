@@ -15,7 +15,7 @@ declare var $:any;
 export class WeatherComponent implements OnInit {
   constructor(private httpClient:HttpClient, private dataRequest:DataRequestService) {}
   form;
-  msg:any;
+  msg:any= "";
   city:string="";
   arr:any[];
   detail1:any[]=[];
@@ -104,18 +104,25 @@ export class WeatherComponent implements OnInit {
     var searchField = "name";
     this.dataRequest.sendRequest("./assets/data/city.list.json").then(data => {
     for (var i=0 ; i < data.length ; i++) {
-        if (data[i]['name'] == city) {
-            if(data[i].id && data[i].name && data[i].country && data[i].coord.lon && data[i].coord.lat) {
-              let id = data[i].id;
-              let name = data[i].name;
-              let country = data[i].country;
-              let lon:string = data[i].coord.lon.toFixed(4);
-              let lat:string = data[i].coord.lat.toFixed(4);
-              this.arrData = [id, name, country, lon, lat];
-              this.results.push(this.arrData);
-          }           
+        if (data[i]['name'] !== city) {
+           this.msg = "City not found!";              
+       }
+       else{ 
+         
+         if(data[i].id && data[i].name && data[i].country && data[i].coord.lon && data[i].coord.lat) {
+          let id = data[i].id;
+          let name = data[i].name;
+          let country = data[i].country;
+          let lon:string = data[i].coord.lon.toFixed(4);
+          let lat:string = data[i].coord.lat.toFixed(4);
+          this.arrData = [id, name, country, lon, lat];
+          this.results.push(this.arrData);
+          this.msg="";
+      }
        }      
     }
+    this.msg;
+    console.log(this.msg);
     this.cityData = this.results  
     });
   }
@@ -134,12 +141,6 @@ export class WeatherComponent implements OnInit {
 
   }
   
-  // changeOrder() {
-  //   this.order = false
-  //   if(this.order === false) {
-  //     this.order = true;
-  //   }
-  // }
   ngOnInit() { 
     //Load default city to get current weather.
     this.getWeather();
@@ -152,7 +153,7 @@ export class WeatherComponent implements OnInit {
     this.form = new FormGroup({
       cityname : new FormControl("", Validators.compose([
         Validators.required,
-        Validators.pattern('[\\w\\-\\s\\/]+')
+        Validators.pattern('^([a-zA-Z ]){3,30}')
       ])) 
     });
   }
