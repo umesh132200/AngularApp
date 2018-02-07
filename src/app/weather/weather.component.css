@@ -1,6 +1,12 @@
 h1 {
   text-align: center;
 }
+input[type='submit']:hover {
+  background-color: blue;
+}
+input[type='submit']:disabled {
+   background-color: gray;
+ }
 #tPanel {
   display: none;
   background-color:yellowgreen;

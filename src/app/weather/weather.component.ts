@@ -1,9 +1,10 @@
 import { Component, OnInit, Input} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { forkJoin } from 'rxjs/observable/forkJoin'; //used to get multiple response from different url.
-import { DataFinder } from './datafinder'; //this file contaile js promise to get city record.
+import { DataRequestService } from './data-request.service'; //this file contaile js promise to get city record.
 import * as xml2js from 'xml2js';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 declare var $:any;
 @Component({
@@ -12,7 +13,10 @@ declare var $:any;
   styleUrls: ['./weather.component.css']
 })
 export class WeatherComponent implements OnInit {
-  constructor(private httpClient:HttpClient, private dataFinder:DataFinder) {}
+  constructor(private httpClient:HttpClient, private dataRequest:DataRequestService) {}
+  form;
+  msg:any;
+  city:string="";
   arr:any[];
   detail1:any[]=[];
   detail2:any[]=[];
@@ -38,6 +42,8 @@ export class WeatherComponent implements OnInit {
   toLon:number = 77.2;
   toLat:number = 28.6;
   cityId:number = 1261481;
+  order:boolean = false;
+  field:any;
 
   /**This method is used to get "current weather" data of all city in latitute & longitute circle
    * and getting data from openWeatherMap api. 
@@ -49,8 +55,8 @@ export class WeatherComponent implements OnInit {
     .map(response => {
       var jsRes:any;
       xml2js.parseString( response, function (err, result) {
-      jsRes = result; 
-    });
+        jsRes = result; 
+      });
     return jsRes;
     })
     .subscribe(result => {
@@ -73,8 +79,8 @@ export class WeatherComponent implements OnInit {
    * and getting data from openWeatherMap api. 
    */
   getDayWise(item){
-    this.httpClient.get('https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/forecast?id='+item[0]+'&appid=79cce9d1cd2fb9e584cca5a598f53932') 
-    .subscribe(data => {
+    this.dataRequest.sendRequest('https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/forecast?id='+item[0]+'&appid=79cce9d1cd2fb9e584cca5a598f53932') 
+    .then(data => {
       this.cityWiseData  = data;  
       this.cityWiseData.list.forEach((items, j:number)=>{
           let time:string[] = this.cityWiseData.list[j].dt_txt;
@@ -92,11 +98,11 @@ export class WeatherComponent implements OnInit {
   /**This method is used to search city name from local json file 
    * and get detail of the city like id, name, country and coord. 
    */
-  searchCity(){
+  searchCity(ct){
     this.results=[];
-    let city:string = $('#city').val();
+    let city:string = ct.cityname.trim().replace(/(^|\s)\S/g, l => l.toUpperCase());
     var searchField = "name";
-    this.dataFinder.getJSONDataAsync("./assets/data/city.list.json").then(data => {
+    this.dataRequest.sendRequest("./assets/data/city.list.json").then(data => {
     for (var i=0 ; i < data.length ; i++) {
         if (data[i]['name'] == city) {
             if(data[i].id && data[i].name && data[i].country && data[i].coord.lon && data[i].coord.lat) {
@@ -128,8 +134,12 @@ export class WeatherComponent implements OnInit {
 
   }
   
-   
-
+  // changeOrder() {
+  //   this.order = false
+  //   if(this.order === false) {
+  //     this.order = true;
+  //   }
+  // }
   ngOnInit() { 
     //Load default city to get current weather.
     this.getWeather();
@@ -137,6 +147,13 @@ export class WeatherComponent implements OnInit {
     //Clickable table row to get row description
     $(document).on("click","tr#getData", function(e) {
       $(this).siblings().slideToggle('slow');
+    });
+
+    this.form = new FormGroup({
+      cityname : new FormControl("", Validators.compose([
+        Validators.required,
+        Validators.pattern('[\\w\\-\\s\\/]+')
+      ])) 
     });
   }
 

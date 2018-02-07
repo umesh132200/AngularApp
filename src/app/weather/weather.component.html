@@ -2,19 +2,22 @@
   <h1>Weather Forecasting</h1>
   <hr><br>
 <div class="row">
+  <form [formGroup]="form" (ngSubmit)="searchCity(form.value)"  >
   <div class="col-xs-8 col-sm-3 col-lg-3">
-    <input type="search" id="city" class="form-control col-lg-4 input-lg" placeholder="Search city">
-  </div>
+    <input type="search" name="cityname" id="city" class="form-control col-lg-4 input-lg"
+    placeholder="Search city" formControlName="cityname">
+   </div>
   <div class="col-xs-4 col-sm-2 col-lg-2">
-    <button (click)="searchCity()" class="btn btn-primary form-control input-lg">Search</button>
+    <input type="submit" value="Search" [disabled]="!form.valid" class="btn btn-primary form-control input-lg">
   </div>
+  </form>
 </div>
 <br>
 <div *ngFor="let item of cityData;">
   <p (click)="onSelect(item)" title="Click to get Weather">{{item[1]+", ["+item[2]+"]  lon: "+item[3]+", lat: "+item[4]}}</p> 
 </div>       
 <br>
-<table class="table table-hover table-bordered table-condensed">
+<table class="table table-hover table-bordered table-condensed table-fixed-header">
   <thead ><!--table head-->
   <tr>
     <th>City</th>
