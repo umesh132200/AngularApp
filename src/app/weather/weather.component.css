@@ -35,6 +35,5 @@ p:hover {
   border-color:black; 
 }
 table{
-    background-color: white;
-    border-radius: 10px;
+     border-color: 2px solid black
 }

@@ -1,5 +1,5 @@
 <div class="container">
-  <!-- <h1>Weather Forecasting</h1> -->
+  <h1>Weather Forecasting</h1>
   <hr><br>
 <div class="row">
   <form [formGroup]="form" (ngSubmit)="searchCity(form.value)"  >
@@ -13,13 +13,13 @@
   </form>
 </div>
 <br>
-<span class="error">{{msg}}</span>
+<!-- <span class="error">{{msg}}</span> -->
 <br>
 <div *ngFor="let item of cityData;">
   <p (click)="onSelect(item)" title="Click to get Weather">{{item[1]+", ["+item[2]+"]  lon: "+item[3]+", lat: "+item[4]}}</p> 
 </div>       
 <br>
-<table class="table table-hover table-bordered table-condensed table-fixed-header">
+<table border="1" class="table table-hover table-condensed">
   <thead ><!--table head-->
   <tr>
     <th>City</th>
@@ -36,7 +36,7 @@
     <tr id="tPanel"><th>Date</th><th>Weather</th><th>Temporature</th><th>Min_temp</th><th>Pressure</th></tr>
     <tr id="tData" *ngFor="let items of detail2">
       <td>{{items[0]}}</td><td>{{items[1]}}</td><td>{{items[2]}}</td><td>{{items[3]}}</td><td>{{items[4]}}</td>
-    </tr>
+    </tr><!--/child record-->
     </tbody>
 </table>
 </div>

@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { WeatherComponent } from './weather/weather.component';
+import { AboutComponent } from './about/about.component';
 
 import { DataRequestService } from './weather/data-request.service';
 
@@ -14,13 +15,16 @@ import { DataRequestService } from './weather/data-request.service';
 @NgModule({
   declarations: [
     AppComponent,
-    WeatherComponent
+    WeatherComponent,
+    AboutComponent
   ],
   imports: [
     HttpClientModule,
     ReactiveFormsModule,
     BrowserModule,
-    RouterModule.forRoot([{path:'weather', component: WeatherComponent}]), 
+    RouterModule.forRoot([{ path: '',   redirectTo: '/weather', pathMatch: 'full' },
+    {path:'weather', component: WeatherComponent},
+    {path:'about', component: AboutComponent},]), 
     HttpModule
   ],
   providers: [DataRequestService],

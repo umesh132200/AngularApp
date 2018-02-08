@@ -102,7 +102,7 @@ export class WeatherComponent implements OnInit {
     this.results=[];
     let city:string = ct.cityname.trim().replace(/(^|\s)\S/g, l => l.toUpperCase());
     var searchField = "name";
-    this.dataRequest.sendRequest("./assets/data/city.list.json").then(data => {
+    this.dataRequest.sendRequest("./assets/data/city.list.min.json").then(data => {
     for (var i=0 ; i < data.length ; i++) {
         if (data[i]['name'] !== city) {
            this.msg = "City not found!";              
@@ -122,7 +122,7 @@ export class WeatherComponent implements OnInit {
        }      
     }
     this.msg;
-    console.log(this.msg);
+    //console.log(this.msg);
     this.cityData = this.results  
     });
   }
@@ -149,7 +149,8 @@ export class WeatherComponent implements OnInit {
     $(document).on("click","tr#getData", function(e) {
       $(this).siblings().slideToggle('slow');
     });
-
+    
+    //To validate the search box
     this.form = new FormGroup({
       cityname : new FormControl("", Validators.compose([
         Validators.required,

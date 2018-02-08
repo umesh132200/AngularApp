@@ -1,9 +1,4 @@
 body {
-  background-image:url("./assets/images/backcover.jpg");
-  background-position: center center;
-  background-attachment: fixed;
-  background-size: 100%;
-  background-repeat: no-repeat;
   padding-top: 70px;
 }
 @media screen and (max-width: 768px) {
