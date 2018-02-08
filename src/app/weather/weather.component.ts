@@ -99,32 +99,40 @@ export class WeatherComponent implements OnInit {
    * and get detail of the city like id, name, country and coord. 
    */
   searchCity(ct){
-    this.results=[];
-    let city:string = ct.cityname.trim().replace(/(^|\s)\S/g, l => l.toUpperCase());
-    var searchField = "name";
-    this.dataRequest.sendRequest("./assets/data/city.list.min.json").then(data => {
-    for (var i=0 ; i < data.length ; i++) {
-        if (data[i]['name'] !== city) {
-           this.msg = "City not found!";              
-       }
-       else{ 
-         
-         if(data[i].id && data[i].name && data[i].country && data[i].coord.lon && data[i].coord.lat) {
-          let id = data[i].id;
-          let name = data[i].name;
-          let country = data[i].country;
-          let lon:string = data[i].coord.lon.toFixed(4);
-          let lat:string = data[i].coord.lat.toFixed(4);
-          this.arrData = [id, name, country, lon, lat];
-          this.results.push(this.arrData);
-          this.msg="";
+    this.msg = "";
+    $('form:nth-child(1)').removeClass('has-error');
+    if(ct.cityname){
+      this.results=[];
+      let city:string = ct.cityname.trim().replace(/(^|\s)\S/g, l => l.toUpperCase());
+      var searchField = "name";
+      this.dataRequest.sendRequest("./assets/data/city.list.min.json").then(data => {
+      for (var i=0 ; i < data.length ; i++) {
+          if (data[i]['name'] == city) {
+           if(data[i].id && data[i].name && data[i].country && data[i].coord.lon && data[i].coord.lat) {
+            let id = data[i].id;
+            let name = data[i].name;
+            let country = data[i].country;
+            let lon:string = data[i].coord.lon.toFixed(4);
+            let lat:string = data[i].coord.lat.toFixed(4);
+            this.arrData = [id, name, country, lon, lat];
+            this.results.push(this.arrData);
+           }
+         }      
       }
-       }      
+      if(this.results.length == 0){
+        this.msg = "City doesn't found!";
+        $('[name=cityname]').val('');
+      }
+      else{
+        this.cityData = this.results  
+      }
+      });
     }
-    this.msg;
-    //console.log(this.msg);
-    this.cityData = this.results  
-    });
+    else{
+      $('form:nth-child(1)').addClass('has-error');
+      this.msg = "Please enter city name!";
+    }
+   
   }
 
   /**This method is used to select city 
@@ -153,8 +161,7 @@ export class WeatherComponent implements OnInit {
     //To validate the search box
     this.form = new FormGroup({
       cityname : new FormControl("", Validators.compose([
-        Validators.required,
-        Validators.pattern('^([a-zA-Z ]){3,30}')
+        Validators.required
       ])) 
     });
   }

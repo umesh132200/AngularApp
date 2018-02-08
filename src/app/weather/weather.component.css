@@ -1,15 +1,11 @@
 h1 {
   text-align: center;
 }
-input[type='submit']:hover {
-  background-color: #428bca;
-}
-input[type='submit']:disabled {
-   background-color: #5bc0de;
- }
+
  .error{
    color:red;
  }
+ 
 #tPanel {
   display: none;
   background-color:yellowgreen;
