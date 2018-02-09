@@ -1,7 +1,7 @@
  .error{
    color:red;
  }
-#tPanel {
+.tPanel {
   display: none;
   background-color:yellowgreen;
 }
@@ -11,7 +11,9 @@
 #tData {
   display: none;
   background-color: yellow;
-  cursor: pointer; 
+}
+#tData:hover {
+  background-color: rgb(201, 195, 195)
 }
 p {
   border: 2px solid gray;

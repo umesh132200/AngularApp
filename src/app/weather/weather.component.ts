@@ -72,6 +72,7 @@ export class WeatherComponent implements OnInit {
          this.tableData.push(this.arr);  
       });
       this.detail1= this.tableData;
+      console.log(this.detail1);
     }
   )
  };
@@ -79,9 +80,11 @@ export class WeatherComponent implements OnInit {
    * and getting data from openWeatherMap api. 
    */
   getDayWise(item){
+    //this.tdata = [];
     this.dataRequest.sendRequest('https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/forecast?id='+item[0]+'&appid=79cce9d1cd2fb9e584cca5a598f53932') 
     .then(data => {
-      this.cityWiseData  = data;  
+      this.cityWiseData  = data; 
+      this.tdata = []; 
       this.cityWiseData.list.forEach((items, j:number)=>{
           let time:string[] = this.cityWiseData.list[j].dt_txt;
           let des:string[] = this.cityWiseData.list[j].weather["0"].description; 
@@ -91,7 +94,7 @@ export class WeatherComponent implements OnInit {
           let arr = [time, des, temporature,min_temp, pressure];
           this.tdata.push(arr);
         });
-      });     
+      });      
       this.detail2 = this.tdata;      
   }
 
@@ -154,7 +157,7 @@ export class WeatherComponent implements OnInit {
     this.getWeather();
 
     //Clickable table row to get row description
-    $(document).on("click","tr#getData", function(e) {
+    $(document).on("click","#getData", function(e) {
       $(this).siblings().slideToggle('slow');
     });
     
