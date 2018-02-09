@@ -1,11 +1,6 @@
-h1 {
-  text-align: center;
-}
-
  .error{
    color:red;
  }
- 
 #tPanel {
   display: none;
   background-color:yellowgreen;
