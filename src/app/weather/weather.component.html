@@ -16,7 +16,8 @@
 <span class="error">{{msg}}</span>
 <br>
 <div *ngFor="let item of cityData;">
-  <p (click)="onSelect(item)" title="Click to get Weather">{{item[1]+", ["+item[2]+"]  lon: "+item[3]+", lat: "+item[4]}}</p> 
+  <p (click)="onSelect(item)" title="Click to get Weather">
+    {{item.name+", ["+item.sys.country+"]  lon: "+item.coord.lon+", lat: "+item.coord.lat}}</p>
 </div>       
 <br>
 <table border="1" class="table table-hover table-condensed">

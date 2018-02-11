@@ -105,37 +105,23 @@ export class WeatherComponent implements OnInit {
   /**This method is used to search city name from local json file 
    * and get detail of the city like id, name, country and coord. 
    */
-  searchCity(ct){
+  searchCity(ct) {
+
     this.msg = "";
-    $('form:nth-child(1)').removeClass('has-error');
-    if(ct.cityname){
+    $('form:nth-child(1)').removeClass('has-error');//remove error class
+    if(ct.cityname) {
       this.results=[];
       let city:string = ct.cityname.trim().replace(/(^|\s)\S/g, l => l.toUpperCase());
-      var searchField = "name";
-      this.dataRequest.sendRequest("./assets/data/city.list.min.json").then(data => {
-      var id:string;
-      var name:string;
-      var country:string;
-      var lon:string;
-      var lat:string;
-      for (var i=0 ; i < data.length ; i++) {
-          if (data[i]['name'] == city) {
-            id = data[i].id;
-            name = data[i].name;
-            country = data[i].country;
-            lon = data[i].coord.lon.toFixed(4);
-            lat  = data[i].coord.lat.toFixed(4);
-            this.arrData = [id, name, country, lon, lat];
-            this.results.push(this.arrData);
-         }      
-      }
-      if(this.results.length == 0){
-        this.msg = "City doesn't found!";
-        $('[name=cityname]').val('');
-      }
-      else{
-        this.cityData = this.results  
-      }
+      this.dataRequest.sendRequest("http://api.openweathermap.org/data/2.5/find?q="+city+"&type=accurate&appid=79cce9d1cd2fb9e584cca5a598f53932")
+      .then(data => {
+        this.results = data.list;
+        if(this.results.length == 0) {
+         this.msg = "City doesn't found!";
+         $('[name=cityname]').val(''); 
+        }
+        else {
+          this.cityData = this.results  
+        }
       });
     }
     else{
