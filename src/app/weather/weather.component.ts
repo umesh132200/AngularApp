@@ -72,26 +72,30 @@ export class WeatherComponent implements OnInit {
          this.tableData.push(this.arr);  
       });
       this.detail1= this.tableData;
-      console.log(this.detail1);
     }
   )
- };
+ }
   /**This method is used to get "5 day/ 3 hour weather" data of selected city
    * and getting data from openWeatherMap api. 
    */
   getDayWise(item){
-    //this.tdata = [];
     this.dataRequest.sendRequest('https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/forecast?id='+item[0]+'&appid=79cce9d1cd2fb9e584cca5a598f53932') 
     .then(data => {
       this.cityWiseData  = data; 
       this.tdata = []; 
+      var time:string[];
+      var des:string[];
+      var temporature:string[];
+      var min_temp:string[];
+      var pressure:string[];
+      var arr:any[];
       this.cityWiseData.list.forEach((items, j:number)=>{
-          let time:string[] = this.cityWiseData.list[j].dt_txt;
-          let des:string[] = this.cityWiseData.list[j].weather["0"].description; 
-          let temporature:string[] = this.cityWiseData.list[j].main.temp; 
-          let min_temp:string[] = this.cityWiseData.list[j].main.temp_min;
-          let pressure:string[] = this.cityWiseData.list[j].main.pressure;  
-          let arr = [time, des, temporature,min_temp, pressure];
+          time = this.cityWiseData.list[j].dt_txt;
+          des = this.cityWiseData.list[j].weather["0"].description; 
+          temporature = this.cityWiseData.list[j].main.temp; 
+          min_temp = this.cityWiseData.list[j].main.temp_min;
+          pressure = this.cityWiseData.list[j].main.pressure;  
+          arr = [time, des, temporature,min_temp, pressure];
           this.tdata.push(arr);
         });
       });      
@@ -109,17 +113,20 @@ export class WeatherComponent implements OnInit {
       let city:string = ct.cityname.trim().replace(/(^|\s)\S/g, l => l.toUpperCase());
       var searchField = "name";
       this.dataRequest.sendRequest("./assets/data/city.list.min.json").then(data => {
+      var id:string;
+      var name:string;
+      var country:string;
+      var lon:string;
+      var lat:string;
       for (var i=0 ; i < data.length ; i++) {
           if (data[i]['name'] == city) {
-           if(data[i].id && data[i].name && data[i].country && data[i].coord.lon && data[i].coord.lat) {
-            let id = data[i].id;
-            let name = data[i].name;
-            let country = data[i].country;
-            let lon:string = data[i].coord.lon.toFixed(4);
-            let lat:string = data[i].coord.lat.toFixed(4);
+            id = data[i].id;
+            name = data[i].name;
+            country = data[i].country;
+            lon = data[i].coord.lon.toFixed(4);
+            lat  = data[i].coord.lat.toFixed(4);
             this.arrData = [id, name, country, lon, lat];
             this.results.push(this.arrData);
-           }
          }      
       }
       if(this.results.length == 0){
@@ -149,7 +156,6 @@ export class WeatherComponent implements OnInit {
    this.toLon = parseFloat(lon);
    this.toLat = parseFloat(lat);
    this.getWeather();
-
   }
   
   ngOnInit() { 

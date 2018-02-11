@@ -2,14 +2,15 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient,HttpHeaders, HttpParams} from '@angular/common/http';
 
 @Injectable()
 
 export class DataRequestService {
-  constructor(private httpClient: HttpClient) {
-  }
-  
+
+  constructor(private httpClient: HttpClient) {}
+
+  //simple url without options
   public sendRequest(urlPath: string) : Promise<any> {
     return new Promise((resolve, reject) => {
       this.httpClient.get(urlPath)
@@ -23,16 +24,17 @@ export class DataRequestService {
       )
     } ).catch((reason) => {});  
   }
-  // return new Promise((resolve, reject) => {
-    //   this.httpClient.get(filePath)
-    //     .subscribe(
-    //       res => {
-    //         if (!res) {
-    //           reject("Failed with status: " + res  + "\nTrying to find fil at " + filePath);
-    //         }
-    //         var jsonRes = res.toString();
-    //         resolve(res);
-    //       }
-    //     );
-    // }).catch((reason) => console.log(reason));
+  
+  //To search data from file
+  // getCitiesName(url: string){
+  // return this.httpClient.get(url);
+  // }
+  //     private extractData(res: Response) {
+  //             console.log(res);
+  //         }
+  //         private handleError (error: Response | any) {
+  //       console.error(error.message || error);
+  //       return Observable.throw(error.message || error);
+  //         }
+
 }

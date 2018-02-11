@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { Http, HttpModule, Response,Headers,RequestOptions } from '@angular/Http'
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
@@ -24,8 +23,7 @@ import { DataRequestService } from './weather/data-request.service';
     BrowserModule,
     RouterModule.forRoot([{ path: '',   redirectTo: '/weather', pathMatch: 'full' },
     {path:'weather', component: WeatherComponent},
-    {path:'about', component: AboutComponent},]), 
-    HttpModule
+    {path:'about', component: AboutComponent},])
   ],
   providers: [DataRequestService],
   bootstrap: [AppComponent]
