@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/forkJoin';
 import {HttpClient,HttpHeaders, HttpParams} from '@angular/common/http';
 
 @Injectable()
@@ -9,7 +10,7 @@ import {HttpClient,HttpHeaders, HttpParams} from '@angular/common/http';
 export class DataRequestService {
 
   constructor(private httpClient: HttpClient) {}
-
+  
   //simple url without options
   public sendRequest(urlPath: string) : Promise<any> {
     return new Promise((resolve, reject) => {
@@ -25,16 +26,12 @@ export class DataRequestService {
     } ).catch((reason) => {});  
   }
   
-  //To search data from file
-  // getCitiesName(url: string){
-  // return this.httpClient.get(url);
-  // }
-  //     private extractData(res: Response) {
-  //             console.log(res);
-  //         }
-  //         private handleError (error: Response | any) {
-  //       console.error(error.message || error);
-  //       return Observable.throw(error.message || error);
-  //         }
-
+  //simple url without options
+  public getResult(item:string[]) {
+      let allData = item.map(item => {
+        return this.httpClient.get('https://api.openweathermap.org/data/2.5/forecast?id='+item+'&appid=79cce9d1cd2fb9e584cca5a598f53932')
+        .map(res => {return res});
+      });
+      return Observable.forkJoin(allData)
+  }
 }

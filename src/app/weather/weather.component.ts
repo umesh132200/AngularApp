@@ -50,12 +50,11 @@ export class WeatherComponent implements OnInit {
    * and getting data from openWeatherMap api. 
    */
   getWeather() {
-    this.tableData =[];
     this.mulResponse = [];
-    this.dataRequest.sendRequest('https://api.openweathermap.org/data/2.5/find?lat='+this.toLat+'&lon='+this.toLon+'&cnt=40&appid=79cce9d1cd2fb9e584cca5a598f53932')
+    this.dataRequest.sendRequest('https://api.openweathermap.org/data/2.5/find?lat='+this.toLat+'&lon='+this.toLon+'&cnt=40&appid='+this.apikey)
     .then(data => {
       this.detail1 = data.list;
-      console.log(this.detail1);
+      this.getDayWise(this.detail1);
     }
   )
  }
@@ -63,11 +62,15 @@ export class WeatherComponent implements OnInit {
   /**This method is used to get "5 day/ 3 hour weather" data of selected city
    * and getting data from openWeatherMap api. 
    */
+
   getDayWise(item){
-    this.dataRequest.sendRequest('https://api.openweathermap.org/data/2.5/forecast?id='+item.id+'&appid=79cce9d1cd2fb9e584cca5a598f53932') 
-    .then(data => {
-      this.detail2 = data.list; 
-      console.log(this.detail2);
+    var arr=[];
+    item.forEach(element => {
+      arr.push(element.id);
+    });
+     this.dataRequest.getResult(arr) 
+    .subscribe(data => {
+      console.log(data); 
       });            
   }
 
@@ -75,13 +78,12 @@ export class WeatherComponent implements OnInit {
    * and get detail of the city like id, name, country and coord. 
    */
   searchCity(ct) {
-
     this.msg = "";
     $('form:nth-child(1)').removeClass('has-error');//remove error class
     if(ct.cityname) {
       this.results=[];
       let city:string = ct.cityname.trim().replace(/(^|\s)\S/g, l => l.toUpperCase());
-      this.dataRequest.sendRequest("https://api.openweathermap.org/data/2.5/find?q="+city+"&type=accurate&appid=79cce9d1cd2fb9e584cca5a598f53932")
+      this.dataRequest.sendRequest('https://api.openweathermap.org/data/2.5/find?q='+city+'&type=accurate&appid='+this.apikey)
       .then(data => {
         this.results = data.list;
         if(this.results.length == 0) {
@@ -117,7 +119,7 @@ export class WeatherComponent implements OnInit {
     this.getWeather();
 
     //Clickable table row to get row description
-    $(document).on("click","#getData", function(e) {
+    $(document).on("click","#slidetoggle", function(e) {
       $(this).siblings().slideToggle('slow');
     });
     

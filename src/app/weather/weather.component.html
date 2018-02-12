@@ -31,7 +31,7 @@
   </tr>
   </thead>
   <tbody *ngFor="let item of detail1"><!--table body with parent record-->
-    <tr id="getData" (click)="getDayWise(item)" title="Click to get next 5 day weather"><td>{{item.name}}</td><td>{{item.weather[0].description}}</td><td>{{item.main.humidity}}</td><td>{{item.main.pressure}}</td><td>{{item.main.temp}}</td></tr>
+    <tr id="slidetoggle" title="Click to get next 5 day weather"><td>{{item.name}}</td><td>{{item.weather[0].description}}</td><td>{{item.main.humidity}}</td><td>{{item.main.pressure}}</td><td>{{item.main.temp}}</td></tr>
     <!--child record-->
     <tr class="header tPanel"><td colspan="5" style="text-align:center; font-weight:700;">{{item.name+" "}}Day Wise Weather Report</td></tr>
     <tr class="tPanel"><th>Date</th><th>Weather</th><th>Temporature</th><th>Min_temp</th><th>Pressure</th></tr>
