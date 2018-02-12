@@ -25,18 +25,18 @@
   <tr>
     <th>City</th>
     <th>Weather</th>
-    <th>Sunrise</th>
-    <th>Sunset</th>
+    <th>Humidity</th>
+    <th>Pressure</th>
     <th>Temp</th>
   </tr>
   </thead>
   <tbody *ngFor="let item of detail1"><!--table body with parent record-->
-    <tr id="getData" (click)="getDayWise(item)" title="Click to get next 5 day weather"><td>{{item[1]}}</td><td>{{item[2]}}</td><td>{{item[3]}}</td><td>{{item[4]}}</td><td>{{item[5]}}</td></tr>
+    <tr id="getData" (click)="getDayWise(item)" title="Click to get next 5 day weather"><td>{{item.name}}</td><td>{{item.weather[0].description}}</td><td>{{item.main.humidity}}</td><td>{{item.main.pressure}}</td><td>{{item.main.temp}}</td></tr>
     <!--child record-->
-    <!-- <tr class="header tPanel"><td colspan="5" style="text-align:center; font-weight:700;">{{item[1]+" "}}Day Wise Weather Report</td></tr>
-    <tr class="tPanel"><th>Date</th><th>Weather</th><th>Temporature</th><th>Min_temp</th><th>Pressure</th></tr> -->
+    <tr class="header tPanel"><td colspan="5" style="text-align:center; font-weight:700;">{{item.name+" "}}Day Wise Weather Report</td></tr>
+    <tr class="tPanel"><th>Date</th><th>Weather</th><th>Temporature</th><th>Min_temp</th><th>Pressure</th></tr>
     <tr id="tData" *ngFor="let items of detail2">
-      <td>{{items[0]}}</td><td>{{items[1]}}</td><td>{{items[2]}}</td><td>{{items[3]}}</td><td>{{items[4]}}</td>
+      <td>{{items.dt_txt}}</td><td>{{items.weather["0"].description}}</td><td>{{items.main.temp}}</td><td>{{items.main.temp_min}}</td><td>{{items.main.pressure}}</td>
     </tr><!--/child record-->
     </tbody>
 </table>

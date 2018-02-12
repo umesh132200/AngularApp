@@ -14,11 +14,12 @@ declare var $:any;
 })
 export class WeatherComponent implements OnInit {
   constructor(private httpClient:HttpClient, private dataRequest:DataRequestService) {}
+  apikey:string = '79cce9d1cd2fb9e584cca5a598f53932';
   form;
   msg:any= "";
   city:string="";
   arr:any[];
-  detail1:any[]=[];
+  detail1:any;
   detail2:any[]=[];
   cityName:any[];
   cityIds:any[];
@@ -51,55 +52,23 @@ export class WeatherComponent implements OnInit {
   getWeather() {
     this.tableData =[];
     this.mulResponse = [];
-    this.httpClient.get('https://api.openweathermap.org/data/2.5/find?lat='+this.toLat+'&lon='+this.toLon+'&cnt=40&mode=xml&appid=79cce9d1cd2fb9e584cca5a598f53932',{responseType:"text"})
-    .map(response => {
-      var jsRes:any;
-      xml2js.parseString( response, function (err, result) {
-        jsRes = result; 
-      });
-    return jsRes;
-    })
-    .subscribe(result => {
-      this.weatherData = result;
-      this.weatherData.cities.list[0].item.forEach((item, i:number) => {
-         this.cityIds = this.weatherData.cities.list[0].item[i].city[0].$.id;
-         this.cityName = this.weatherData.cities.list[0].item[i].city[0].$.name;
-         this.weatherDes = this.weatherData.cities.list[0].item[i].weather[0].$.value;
-         this.sunRise = this.weatherData.cities.list[0].item[i].city[0].sun[0].$.rise;
-         this.sunSet = this.weatherData.cities.list[0].item[i].city[0].sun[0].$.set;
-         this.temp = this.weatherData.cities.list[0].item[i].temperature[0].$.value;
-         this.arr =[this.cityIds, this.cityName, this.weatherDes, this.sunRise, this.sunSet, this.temp];
-         this.tableData.push(this.arr);  
-      });
-      this.detail1= this.tableData;
+    this.dataRequest.sendRequest('https://api.openweathermap.org/data/2.5/find?lat='+this.toLat+'&lon='+this.toLon+'&cnt=40&appid=79cce9d1cd2fb9e584cca5a598f53932')
+    .then(data => {
+      this.detail1 = data.list;
+      console.log(this.detail1);
     }
   )
  }
+
   /**This method is used to get "5 day/ 3 hour weather" data of selected city
    * and getting data from openWeatherMap api. 
    */
   getDayWise(item){
-    this.dataRequest.sendRequest('https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/forecast?id='+item[0]+'&appid=79cce9d1cd2fb9e584cca5a598f53932') 
+    this.dataRequest.sendRequest('https://api.openweathermap.org/data/2.5/forecast?id='+item.id+'&appid=79cce9d1cd2fb9e584cca5a598f53932') 
     .then(data => {
-      this.cityWiseData  = data; 
-      this.tdata = []; 
-      var time:string[];
-      var des:string[];
-      var temporature:string[];
-      var min_temp:string[];
-      var pressure:string[];
-      var arr:any[];
-      this.cityWiseData.list.forEach((items, j:number)=>{
-          time = this.cityWiseData.list[j].dt_txt;
-          des = this.cityWiseData.list[j].weather["0"].description; 
-          temporature = this.cityWiseData.list[j].main.temp; 
-          min_temp = this.cityWiseData.list[j].main.temp_min;
-          pressure = this.cityWiseData.list[j].main.pressure;  
-          arr = [time, des, temporature,min_temp, pressure];
-          this.tdata.push(arr);
-        });
-      });      
-      this.detail2 = this.tdata;      
+      this.detail2 = data.list; 
+      console.log(this.detail2);
+      });            
   }
 
   /**This method is used to search city name from local json file 
@@ -112,7 +81,7 @@ export class WeatherComponent implements OnInit {
     if(ct.cityname) {
       this.results=[];
       let city:string = ct.cityname.trim().replace(/(^|\s)\S/g, l => l.toUpperCase());
-      this.dataRequest.sendRequest("http://api.openweathermap.org/data/2.5/find?q="+city+"&type=accurate&appid=79cce9d1cd2fb9e584cca5a598f53932")
+      this.dataRequest.sendRequest("https://api.openweathermap.org/data/2.5/find?q="+city+"&type=accurate&appid=79cce9d1cd2fb9e584cca5a598f53932")
       .then(data => {
         this.results = data.list;
         if(this.results.length == 0) {
@@ -135,10 +104,9 @@ export class WeatherComponent implements OnInit {
    * and request for current weather data from openWeatherMap api 
    */
   onSelect(selectData){
-   this.selectData = selectData;
-   this.cityId = this.selectData[0];
-   let lon:string = parseFloat(this.selectData[3]).toFixed(4);
-   let lat:string = parseFloat(this.selectData[4]).toFixed(4);
+   this.cityId = selectData.id;
+   let lon:string = parseFloat(selectData.coord.lon).toFixed(4);
+   let lat:string = parseFloat(selectData.coord.lat).toFixed(4);
    this.toLon = parseFloat(lon);
    this.toLat = parseFloat(lat);
    this.getWeather();
