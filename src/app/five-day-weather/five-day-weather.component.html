@@ -1,4 +1,6 @@
 <div class="container">
+  <h3 class="text-center">{{fiveDayWeather.city.name}}</h3>
+  <hr><br>
     <table border="1" class="table table-hover table-condensed">
         <thead >
           <tr>
@@ -6,10 +8,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <!-- <td>{{d_items.dt_txt}}</td><td>{{d_items.weather[0].description}}</td>
-            <td>{{d_items.main.temp}}</td><td>{{d_items.main.temp_min}}</td>
-            <td>{{d_items.main.pressure}}</td> -->
+          <tr *ngFor="let item of fiveDayWeather.list">
+            <td>{{item.dt_txt}}</td><td>{{item.weather[0].description}}</td>
+            <td>{{item.main.temp}}</td><td>{{item.main.temp_min}}</td>
+            <td>{{item.main.pressure}}</td>
           </tr>
         </tbody>
     </table>

@@ -72,10 +72,21 @@ export class WeatherComponent implements OnInit {
 
     this.dataRequest.getResult(arr) 
     .subscribe(data => { 
-      this.fiveDayWeather = data;
+      this.detail1 = data;
     });        
   }
-
+  
+  getFiveDayWeather(id){
+    var data:any;
+    this.detail1.forEach(element => {
+      if(element.city.id === id){
+        data = element;
+        this.dataRequest.dataCast(data);
+      }
+    });
+    
+  }
+  
   /**This method is used to search city name from local json file 
    * and get detail of the city like id, name, country and coord. 
    */

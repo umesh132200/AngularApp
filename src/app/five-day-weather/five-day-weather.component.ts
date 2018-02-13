@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataRequestService } from './../services/data-request.service';
 
 @Component({
   selector: 'app-five-day-weather',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FiveDayWeatherComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private requestData:DataRequestService) { }
+  fiveDayWeather:any;
   ngOnInit() {
+    this.requestData.data1.subscribe(data => {
+      this.fiveDayWeather = data
+    })
   }
 
 }

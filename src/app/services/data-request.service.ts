@@ -4,13 +4,22 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/forkJoin';
 import {HttpClient,HttpHeaders, HttpParams} from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 
 export class DataRequestService {
+  dt:any;
+  private data = new BehaviorSubject<any>(this.dt);
+  data1 = this.data.asObservable();
 
   constructor(private httpClient: HttpClient) {}
   
+  //Data cast method
+  dataCast(data){
+    this.data.next(data);
+  }
+
   //simple url without options
   public sendRequest(urlPath: string) : Promise<any> {
     return new Promise((resolve, reject) => {
