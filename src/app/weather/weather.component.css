@@ -2,14 +2,14 @@
    color:red;
  }
 .tPanel {
-  display: none;
+  /* display: none; */
   background-color:yellowgreen;
 }
 #getData {
   cursor:pointer;
 }
 #tData {
-  display: none;
+  /* display: none; */
   background-color: yellow;
 }
 #tData:hover {

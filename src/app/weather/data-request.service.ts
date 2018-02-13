@@ -32,6 +32,6 @@ export class DataRequestService {
         return this.httpClient.get('https://api.openweathermap.org/data/2.5/forecast?id='+item+'&appid=79cce9d1cd2fb9e584cca5a598f53932')
         .map(res => {return res});
       });
-      return Observable.forkJoin(allData)
+      return Observable.forkJoin(allData);
   }
 }

@@ -20,7 +20,8 @@ export class WeatherComponent implements OnInit {
   city:string="";
   arr:any[];
   detail1:any;
-  detail2:any[]=[];
+  cityWeather:any;
+  detail2:any[];
   cityName:any[];
   cityIds:any[];
   weatherDes:any[];
@@ -45,6 +46,7 @@ export class WeatherComponent implements OnInit {
   cityId:number = 1261481;
   order:boolean = false;
   field:any;
+  fiveDayWeather:any;
 
   /**This method is used to get "current weather" data of all city in latitute & longitute circle
    * and getting data from openWeatherMap api. 
@@ -53,8 +55,8 @@ export class WeatherComponent implements OnInit {
     this.mulResponse = [];
     this.dataRequest.sendRequest('https://api.openweathermap.org/data/2.5/find?lat='+this.toLat+'&lon='+this.toLon+'&cnt=40&appid='+this.apikey)
     .then(data => {
-      this.detail1 = data.list;
-      this.getDayWise(this.detail1);
+      this.cityWeather = data.list;
+      this.getDayWise(this.cityWeather);
     }
   )
  }
@@ -62,16 +64,17 @@ export class WeatherComponent implements OnInit {
   /**This method is used to get "5 day/ 3 hour weather" data of selected city
    * and getting data from openWeatherMap api. 
    */
-
-  getDayWise(item){
+  getDayWise(cityweather){
     var arr=[];
-    item.forEach(element => {
+    cityweather.forEach(element => {
       arr.push(element.id);
     });
-     this.dataRequest.getResult(arr) 
-    .subscribe(data => {
-      console.log(data); 
-      });            
+
+    this.dataRequest.getResult(arr) 
+    .subscribe(data => { 
+      this.fiveDayWeather = data;
+      //console.log(this.fiveDayWeather);
+    });        
   }
 
   /**This method is used to search city name from local json file 

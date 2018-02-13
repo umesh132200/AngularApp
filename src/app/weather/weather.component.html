@@ -21,7 +21,7 @@
 </div>       
 <br>
 <table border="1" class="table table-hover table-condensed">
-  <thead ><!--table head-->
+  <thead>
   <tr>
     <th>City</th>
     <th>Weather</th>
@@ -30,15 +30,15 @@
     <th>Temp</th>
   </tr>
   </thead>
-  <tbody *ngFor="let item of detail1"><!--table body with parent record-->
-    <tr id="slidetoggle" title="Click to get next 5 day weather"><td>{{item.name}}</td><td>{{item.weather[0].description}}</td><td>{{item.main.humidity}}</td><td>{{item.main.pressure}}</td><td>{{item.main.temp}}</td></tr>
-    <!--child record-->
-    <tr class="header tPanel"><td colspan="5" style="text-align:center; font-weight:700;">{{item.name+" "}}Day Wise Weather Report</td></tr>
-    <tr class="tPanel"><th>Date</th><th>Weather</th><th>Temporature</th><th>Min_temp</th><th>Pressure</th></tr>
-    <tr id="tData" *ngFor="let items of detail2">
-      <td>{{items.dt_txt}}</td><td>{{items.weather["0"].description}}</td><td>{{items.main.temp}}</td><td>{{items.main.temp_min}}</td><td>{{items.main.pressure}}</td>
-    </tr><!--/child record-->
-    </tbody>
+  <tbody *ngFor="let item of cityWeather">
+    <tr (click)="getFiveDayWeather(item.id)" routerLink="/five-day-weather" routerLinkActive="active" title="Click to get next 5 day weather">
+      <td>{{item.name}}</td>
+      <td>{{item.weather[0].description}}</td>
+      <td>{{item.main.humidity}}</td>
+      <td>{{item.main.pressure}}</td>
+      <td>{{item.main.temp}}</td>
+    </tr>
+  </tbody>
 </table>
 </div>
 

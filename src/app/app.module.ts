@@ -9,13 +9,15 @@ import { WeatherComponent } from './weather/weather.component';
 import { AboutComponent } from './about/about.component';
 
 import { DataRequestService } from './weather/data-request.service';
+import { FiveDayWeatherComponent } from './five-day-weather/five-day-weather.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     WeatherComponent,
-    AboutComponent
+    AboutComponent,
+    FiveDayWeatherComponent
   ],
   imports: [
     HttpClientModule,
@@ -23,7 +25,8 @@ import { DataRequestService } from './weather/data-request.service';
     BrowserModule,
     RouterModule.forRoot([{ path: '',   redirectTo: '/weather', pathMatch: 'full' },
     {path:'weather', component: WeatherComponent},
-    {path:'about', component: AboutComponent},])
+    {path:'about', component: AboutComponent},
+    {path:'five-day-weather', component: FiveDayWeatherComponent}])
   ],
   providers: [DataRequestService],
   bootstrap: [AppComponent]
