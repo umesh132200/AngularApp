@@ -30,8 +30,8 @@
     <th>Temp</th>
   </tr>
   </thead>
-  <tbody *ngFor="let item of cityWeather">
-    <tr (click)="getFiveDayWeather(item.id)" routerLink="/five-day-weather" routerLinkActive="active" title="Click to get next 5 day weather">
+  <tbody>
+    <tr *ngFor="let item of cityWeather" (click)="getFiveDayWeather(item.id)" routerLink="/five-day-weather" routerLinkActive="active" title="Click to get next 5 day weather">
       <td>{{item.name}}</td>
       <td>{{item.weather[0].description}}</td>
       <td>{{item.main.humidity}}</td>

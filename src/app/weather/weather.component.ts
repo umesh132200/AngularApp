@@ -2,7 +2,7 @@ import { Component, OnInit, Input} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { forkJoin } from 'rxjs/observable/forkJoin'; //used to get multiple response from different url.
-import { DataRequestService } from './data-request.service'; //this file contaile js promise to get city record.
+import { DataRequestService } from './../services/data-request.service' //this file contaile js promise to get city record.
 import * as xml2js from 'xml2js';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
@@ -73,7 +73,6 @@ export class WeatherComponent implements OnInit {
     this.dataRequest.getResult(arr) 
     .subscribe(data => { 
       this.fiveDayWeather = data;
-      //console.log(this.fiveDayWeather);
     });        
   }
 

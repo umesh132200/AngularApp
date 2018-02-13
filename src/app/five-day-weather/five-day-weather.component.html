@@ -5,11 +5,11 @@
             <th>Date</th><th>Weather</th><th>Temporature</th><th>Min_temp</th><th>Pressure</th>
           </tr>
         </thead>
-        <tbody *ngFor="let item of detail2">
-          <tr *ngFor="let d_items of c_items.list">
-            <td>{{d_items.dt_txt}}</td><td>{{d_items.weather[0].description}}</td>
+        <tbody>
+          <tr>
+            <!-- <td>{{d_items.dt_txt}}</td><td>{{d_items.weather[0].description}}</td>
             <td>{{d_items.main.temp}}</td><td>{{d_items.main.temp_min}}</td>
-            <td>{{d_items.main.pressure}}</td>
+            <td>{{d_items.main.pressure}}</td> -->
           </tr>
         </tbody>
     </table>

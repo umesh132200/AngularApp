@@ -7,9 +7,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { WeatherComponent } from './weather/weather.component';
 import { AboutComponent } from './about/about.component';
-
-import { DataRequestService } from './weather/data-request.service';
 import { FiveDayWeatherComponent } from './five-day-weather/five-day-weather.component';
+
+import { DataRequestService } from './services/data-request.service';
+
 
 
 @NgModule({
