@@ -1,1 +1,20 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Weather Forecasting</title><base href="https://umesh132200.github.io/AngularApp/"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/x-icon" href="favicon.ico"><link rel="stylesheet" href="./assets/css/bootstrap.min.css"><link rel="stylesheet" href="./assets/css/web-fonts-with-css/css/fontawesome-all.min.css"><link href="styles.35c866372a7c852d88e4.bundle.css" rel="stylesheet"/></head><body><app-root></app-root><script src="./assets/js/jquery.min.js"></script><script src="./assets/js/bootstrap.min.js"></script><script type="text/javascript" src="inline.969d5fb531c0ff897a65.bundle.js"></script><script type="text/javascript" src="polyfills.f20484b2fa4642e0dca8.bundle.js"></script><script type="text/javascript" src="scripts.806effac119676237f10.bundle.js"></script><script type="text/javascript" src="main.6e0a3cc3c870166c71fb.bundle.js"></script></body></html>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Weather Forecasting</title><base href="https://umesh132200.github.io/AngularApp/"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/x-icon" href="favicon.ico"><link rel="stylesheet" href="./assets/css/bootstrap.min.css"><link rel="stylesheet" href="./assets/css/web-fonts-with-css/css/fontawesome-all.min.css"><link rel="stylesheet" href="./assets/css/datatables.min.css"><link href="styles.35c866372a7c852d88e4.bundle.css" rel="stylesheet"/></head><body><app-root></app-root><script src="./assets/js/jquery.min.js"></script><script src="./assets/js/bootstrap.min.js"></script><script src="./assets/js/datatables.min.js"></script><script>$(document).on(function(){
+      $('#datatab').DataTable();
+    });
+
+    //collapse navbar
+    $(function() {
+      $('.nav a').on('click', function(){ 
+          if($('.navbar-toggle').css('display') !='none'){
+              $('.navbar-toggle').trigger( "click" );
+          }
+      });
+  });
+
+  $(function() {
+      $('.navbar-header a').on('click', function(){ 
+          if($('.navbar-collapse').css('display') !='none'){
+              $('.navbar-toggle').trigger( "click" );
+          }
+      });
+  });</script><script type="text/javascript" src="inline.01dab79d36532af0be9e.bundle.js"></script><script type="text/javascript" src="polyfills.f20484b2fa4642e0dca8.bundle.js"></script><script type="text/javascript" src="scripts.806effac119676237f10.bundle.js"></script><script type="text/javascript" src="main.fb7ccd8b53cb24d0c87a.bundle.js"></script></body></html>
