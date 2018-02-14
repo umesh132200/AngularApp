@@ -60,7 +60,7 @@ export class WeatherComponent implements OnInit {
       this.getDayWise(this.cityWeather);
     },
     error => {}
-  ).catch
+  ).catch(this.handleError);
  }
 
   /**This method is used to get "5 day/ 3 hour weather" data of selected city
@@ -76,9 +76,14 @@ export class WeatherComponent implements OnInit {
     .subscribe(data => { 
       this.detail1 = data;
     },
-  error => {});        
+  error => {this.handleError});        
   }
   
+
+  /**
+   * This method is used to send data one componet
+   * to other via service.
+   */
   getFiveDayWeather(id){
     var data:any;
     this.detail1.forEach(element => {
@@ -110,13 +115,18 @@ export class WeatherComponent implements OnInit {
           this.cityData = this.results  
         }
       },
-    error => {});
+    error => {this.handleError});
     }
     else{
       $('form:nth-child(1)').addClass('has-error');
       this.msg = "Please enter city name!";
     }
    
+  }
+
+  //error handling
+  public handleError = (error:Response) => {
+    return Observable.throw(error);
   }
 
   /**This method is used to select city 
