@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataRequestService } from './../services/data-request.service';
+import {CanActivate, Router, RouterStateSnapshot, ActivatedRouteSnapshot} from '@angular/router';
 
 @Component({
   selector: 'app-five-day-weather',
@@ -7,12 +8,18 @@ import { DataRequestService } from './../services/data-request.service';
   styleUrls: ['./five-day-weather.component.css']
 })
 export class FiveDayWeatherComponent implements OnInit {
-
-  constructor(private requestData:DataRequestService) { }
+  cityname:string;
+  constructor(private requestData:DataRequestService, private router:Router) { }
   fiveDayWeather:any;
   ngOnInit() {
     this.requestData.data1.subscribe(data => {
-      this.fiveDayWeather = data
+      if(data === undefined){
+       this.router.navigate(['/weather']);
+      }
+      else{
+      this.cityname = data.city.name;
+      this.fiveDayWeather = data.list;
+      }  
     })
   }
 

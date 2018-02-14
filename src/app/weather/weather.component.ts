@@ -5,8 +5,9 @@ import { forkJoin } from 'rxjs/observable/forkJoin'; //used to get multiple resp
 import { DataRequestService } from './../services/data-request.service' //this file contaile js promise to get city record.
 import * as xml2js from 'xml2js';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import * as $ from 'jquery';
 
-declare var $:any;
+//declare var $:any;
 @Component({
   selector: 'app-weather',
   templateUrl: './weather.component.html',
@@ -57,8 +58,9 @@ export class WeatherComponent implements OnInit {
     .then(data => {
       this.cityWeather = data.list;
       this.getDayWise(this.cityWeather);
-    }
-  )
+    },
+    error => {}
+  ).catch
  }
 
   /**This method is used to get "5 day/ 3 hour weather" data of selected city
@@ -73,7 +75,8 @@ export class WeatherComponent implements OnInit {
     this.dataRequest.getResult(arr) 
     .subscribe(data => { 
       this.detail1 = data;
-    });        
+    },
+  error => {});        
   }
   
   getFiveDayWeather(id){
@@ -106,7 +109,8 @@ export class WeatherComponent implements OnInit {
         else {
           this.cityData = this.results  
         }
-      });
+      },
+    error => {});
     }
     else{
       $('form:nth-child(1)').addClass('has-error');
