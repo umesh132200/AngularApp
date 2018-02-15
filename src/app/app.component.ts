@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-declare var $:any;
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -8,6 +8,25 @@ declare var $:any;
 export class AppComponent implements OnInit{
   constructor() { }
   ngOnInit(){
+    
+     //collapse navbar
+     $(function() {
+      $('.nav a').on('click', function(){ 
+          if($('.navbar-toggle').css('display') !='none'){
+              $('.navbar-toggle').trigger( "click" );
+          }
+      });
+  });
+
+  $(function() {
+      $('.navbar-header a').on('click', function(){ 
+          if($('.navbar-collapse').css('display') !='none'){
+              $('.navbar-toggle').trigger( "click" );
+          }
+      });
+  });
+
+    //Go to top
     $(window).scroll(function() {
       if ($(this).scrollTop() > 80 ) {
           $('.scrolltop:hidden').stop(true, true).fadeIn();

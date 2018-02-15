@@ -13,11 +13,23 @@ export class DataRequestService {
   private data = new BehaviorSubject<any>(this.dt);
   data1 = this.data.asObservable();
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) {  }
   
+  public getLocalStorageData() {
+    let weatherData = JSON.parse(localStorage.getItem('data'));
+    return weatherData;
+  }
+
   //Data cast method
   dataCast(data){
-    this.data.next(data);
+    if(typeof(Storage) !== 'undefined'){
+      localStorage.setItem('data',JSON.stringify(data)); 
+      this.data.next(data);
+    }
+    else{
+      console.log("local storage not supported by browser");
+    }
+    
   }
 
   //simple url without options

@@ -9,18 +9,32 @@ import {CanActivate, Router, RouterStateSnapshot, ActivatedRouteSnapshot} from '
 })
 export class FiveDayWeatherComponent implements OnInit {
   cityname:string;
-  constructor(private requestData:DataRequestService, private router:Router) { }
   fiveDayWeather:any;
-  ngOnInit() {
+  cn:string;
+  fd:any;
+  constructor(private requestData:DataRequestService, private router:Router) { 
+    let data = JSON.parse(localStorage.getItem('data'));
+    this.cityname = data.city.name;
+    this.fiveDayWeather = data.list;
+  }
+  
+  public showData(){
     this.requestData.data1.subscribe(data => {
-      if(data === undefined){
-       this.router.navigate(['/weather']);
-      }
-      else{
       this.cityname = data.city.name;
-      this.fiveDayWeather = data.list;
-      }  
+      this.fiveDayWeather = data.list; 
     })
   }
 
+
+  ngOnInit() {
+   
+      // if(data === undefined || data === null){
+      //  this.router.navigate(['/weather']);
+      // }
+      // else{
+     
+      //}        
+    
+  }
+  
 }

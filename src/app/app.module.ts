@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { DataTablesModule } from 'angular-datatables';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 import { AppComponent } from './app.component';
 import { WeatherComponent } from './weather/weather.component';
@@ -24,6 +25,8 @@ import { DataRequestService } from './services/data-request.service';
   imports: [
     HttpClientModule,
     ReactiveFormsModule,
+    DataTablesModule,
+    AngularFontAwesomeModule,
     BrowserModule,
     RouterModule.forRoot([{ path: '',   redirectTo: '/weather', pathMatch: 'full' },
     {path:'weather', component: WeatherComponent},

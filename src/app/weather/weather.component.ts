@@ -5,9 +5,7 @@ import { forkJoin } from 'rxjs/observable/forkJoin'; //used to get multiple resp
 import { DataRequestService } from './../services/data-request.service' //this file contaile js promise to get city record.
 import * as xml2js from 'xml2js';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import * as $ from 'jquery';
 
-//declare var $:any;
 @Component({
   selector: 'app-weather',
   templateUrl: './weather.component.html',
@@ -81,8 +79,8 @@ export class WeatherComponent implements OnInit {
   
 
   /**
-   * This method is used to send data one componet
-   * to other via service.
+   * This method is used to send data weather component
+   * to five-day-weather component via service.
    */
   getFiveDayWeather(id){
     var data:any;
