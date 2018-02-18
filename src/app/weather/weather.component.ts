@@ -5,6 +5,7 @@ import { forkJoin } from 'rxjs/observable/forkJoin'; //used to get multiple resp
 import { DataRequestService } from './../services/data-request.service' //this file contaile js promise to get city record.
 import * as xml2js from 'xml2js';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'app-weather',
@@ -12,6 +13,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./weather.component.css']
 })
 export class WeatherComponent implements OnInit {
+  dtOptions: any = {};
+  dtTrigger: Subject<any> = new Subject();
   constructor(private httpClient:HttpClient, private dataRequest:DataRequestService) {}
   apikey:string = '79cce9d1cd2fb9e584cca5a598f53932';
   form;
@@ -55,6 +58,7 @@ export class WeatherComponent implements OnInit {
     this.dataRequest.sendRequest('https://api.openweathermap.org/data/2.5/find?lat='+this.toLat+'&lon='+this.toLon+'&cnt=40&appid='+this.apikey)
     .then(data => {
       this.cityWeather = data.list;
+      this.dtTrigger.next();
       this.getDayWise(this.cityWeather);
     },
     error => {}
@@ -140,9 +144,15 @@ export class WeatherComponent implements OnInit {
   }
   
   ngOnInit() { 
+
+    this.dtOptions = {
+      responsive: true
+    }; 
+
     //Load default city to get current weather.
     this.getWeather();
 
+    
     //Clickable table row to get row description
     $(document).on("click","#slidetoggle", function(e) {
       $(this).siblings().slideToggle('slow');

@@ -2,8 +2,9 @@ h1{
     color:black;
 }
 .bg-4 { 
-    background-color: #2f2f2f; /* Black Gray */
+	background-color: #2f2f2f; /* Black Gray */
     color: rgb(243, 243, 243);
+
 }
 .container-fluid {
     padding-top: 40px;
