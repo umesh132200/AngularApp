@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { forkJoin } from 'rxjs/observable/forkJoin'; //used to get multiple response from different url.
 import { DataRequestService } from './../services/data-request.service' //this file contaile js promise to get city record.
 import * as xml2js from 'xml2js';
+import { CanActivate, Router, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subject } from 'rxjs/Subject';
 
@@ -15,7 +16,7 @@ import { Subject } from 'rxjs/Subject';
 export class WeatherComponent implements OnInit {
   dtOptions: any = {};
   dtTrigger: Subject<any> = new Subject();
-  constructor(private httpClient:HttpClient, private dataRequest:DataRequestService) {}
+  constructor(private httpClient:HttpClient, private dataRequest:DataRequestService, private router:Router) {}
   apikey:string = '79cce9d1cd2fb9e584cca5a598f53932';
   form;
   msg:any= "";
@@ -92,6 +93,7 @@ export class WeatherComponent implements OnInit {
       if(element.city.id === id){
         data = element;
         this.dataRequest.dataCast(data);
+        this.router.navigate(['/five-day-weather']);
       }
     });
     
@@ -145,7 +147,7 @@ export class WeatherComponent implements OnInit {
   
   ngOnInit() { 
 
-    this.dtOptions = {
+    this.dtOptions = { 
       responsive: true
     }; 
 

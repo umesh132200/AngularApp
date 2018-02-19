@@ -5,8 +5,12 @@
   /* display: none; */
   background-color:yellowgreen;
 }
-#getData {
+table > tbody > tr {
   cursor:pointer;
+}
+
+td.sorting_1::before{
+  cursor: n-resize;
 }
 #tData {
   /* display: none; */
