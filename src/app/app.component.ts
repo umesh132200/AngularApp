@@ -5,35 +5,43 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   constructor() { }
-  ngOnInit(){
+  ngOnInit() {
     
-     //collapse navbar
-     $(function() {
-      $('.nav a').on('click', function(){ 
-          if($('.navbar-toggle').css('display') !='none'){
+     //collapse navbar when click sub link
+     $(() => {
+       $('.nav a').on('click', () => { 
+          if($('.navbar-toggle').css('display') !='none') {
               $('.navbar-toggle').trigger( "click" );
           }
-      });
-  });
+       });
+     });
 
-  $(function() {
-      $('.navbar-header a').on('click', function(){ 
-          if($('.navbar-collapse').css('display') !='none'){
-              $('.navbar-toggle').trigger( "click" );
-          }
-      });
-  });
+     //collapse navbar when click header link
+     $(() => {
+          $('.navbar-header a').on('click', () => { 
+             if($('.navbar-collapse').css('display') !='none') {
+               $('.navbar-toggle').trigger( "click" );
+             }
+          });
+     }); 
 
-    //Go to top
-    $(window).scroll(function() {
+     //Page scroll show / hide goto top button
+     $(window).scroll(function() {
       if ($(this).scrollTop() > 80 ) {
           $('.scrolltop:hidden').stop(true, true).fadeIn();
-      } else {
+      }  else {
           $('.scrolltop').stop(true, true).fadeOut();
-      }
-  });
-  $(function(){$(".scroll").click(function(){$("html,body").animate({ scrollTop: 0 }, 600 );return false})})
-  }
+         }
+     });
+
+     //Click button goto top
+     $(() => {
+         $(".scroll").click(() => {
+             $("html,body").animate({ scrollTop: 0 }, 600 );
+             return false;
+            });
+     });
+   }
 }

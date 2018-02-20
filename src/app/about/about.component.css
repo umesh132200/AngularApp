@@ -1,14 +1,17 @@
-h2{
-    text-align: center;
+h2 {
+ text-align: center;
 }
-h3{
-    background-color: rgba(8, 8, 8, 0.548);
-    color:white;
-    padding:6px;
-    border-radius: 2px;
+h3 {
+ background-color: rgba(8, 8, 8, 0.548);
+ color:white;
+ padding:6px;
+ border-radius: 2px;
+}
+.bs-sidebar {
+ position: fixed;
 }
 @media screen and (max-width:991px) {
- .bs-sidebar{
-     display: none;
+ .bs-sidebar {
+   display: none;
  }
 }

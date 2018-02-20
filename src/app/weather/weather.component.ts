@@ -159,7 +159,7 @@ export class WeatherComponent implements OnInit {
     $(document).on("click","#slidetoggle", function(e) {
       $(this).siblings().slideToggle('slow');
     });
-    
+     
     //To validate the search box
     this.form = new FormGroup({
       cityname : new FormControl("", Validators.compose([
