@@ -9,7 +9,7 @@ export class AppComponent implements OnInit {
   constructor() { }
   ngOnInit() {
     
-     //collapse navbar when click sub link
+     //Auto collapse navbar when click sub link
      $(() => {
        $('.nav a').on('click', () => { 
           if($('.navbar-toggle').css('display') !='none') {
