@@ -21,7 +21,6 @@ export class WeatherComponent implements OnInit {
   cityId:number = 1261481;
   form:FormGroup;
   dtOptions: any = {};
-  dtInstance:any = {};
   detail1:any;
   cityWeather:any;
   cityData = [];
@@ -38,7 +37,6 @@ export class WeatherComponent implements OnInit {
     .then(
       data => {
         this.cityWeather = data.list;
-        this.dtInstance.DataTable.ngDestroy();
         this.dtTrigger.next();
         this.getDayWise(this.getCityIds(this.cityWeather));
       },
@@ -132,8 +130,11 @@ export class WeatherComponent implements OnInit {
   
   ngOnInit() {   
     this.getWeather(); //onLoad current city weather.
-
-    this.dtOptions = { responsive: true }; //For datatable responsive
+    
+    //For datatable responsive
+    this.dtOptions = { 
+      retrieve: true,
+      responsive: true }; 
 
     //To validate the search box
     this.form = new FormGroup({
