@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/forkJoin';
-import {HttpClient,HttpHeaders, HttpParams} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
@@ -11,23 +11,22 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 export class DataRequestService {
   dt:any;
   private data = new BehaviorSubject<any>(this.dt);
-  data1 = this.data.asObservable();
+  dataFromWeather = this.data.asObservable();
 
   constructor(private httpClient: HttpClient) {  }
   
   public getLocalStorageData() {
-    let weatherData = JSON.parse(localStorage.getItem('data'));
-    return weatherData;
+    return JSON.parse(localStorage.getItem('data'));
   }
 
   //Data cast method
-  dataCast(data){
-    if(typeof(Storage) !== 'undefined'){
+  dataCast(data) {
+    if(typeof(Storage) !== 'undefined') {
       localStorage.setItem('data',JSON.stringify(data)); 
       this.data.next(data);
     }
-    else{
-      console.log("local storage not supported by browser");
+    else {
+      document.write('Browser not supported web storage!');
     }
     
   }
@@ -39,10 +38,11 @@ export class DataRequestService {
       .subscribe(
         res => {
           if(!res){
-            reject("error occured "+res );
+            reject(res);
           }
           resolve(res);
-        }
+        },
+        error => {}
       )
     } ).catch((reason) => {});  
   }

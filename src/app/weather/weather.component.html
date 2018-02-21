@@ -3,36 +3,36 @@
   <hr><br>
   <div class="row">
     <form [formGroup]="form" (ngSubmit)="searchCity(form.value)">
-    <div class="col-xs-8 col-sm-4 col-md-3 col-lg-3">
-    <input type="search" name="cityname" class="form-control col-lg-4 input-lg"
-    placeholder="Search city around world" formControlName="cityname">
-   </div>
-  <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2">
-    <input type="submit" value="Search" class="btn btn-primary form-control input-lg">
+      <div class="col-xs-8 col-sm-4 col-md-3 col-lg-3">
+        <input type="search" name="cityname" class="form-control col-lg-4 input-lg"
+        placeholder="Search city around world" formControlName="cityname">
+      </div>
+      <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2">
+        <input type="submit" value="Search" class="btn btn-primary form-control input-lg">
+      </div>
+    </form>
   </div>
-  </form>
-</div>
-<br>
-<span class="error">{{msg}}</span>
-<br>
-<div *ngFor="let item of cityData;">
-  <p (click)="onSelect(item)" title="Click to get Weather">
-    {{item.name+", ["+item.sys.country+"]  lon: "+item.coord.lon+", lat: "+item.coord.lat}}</p>
-</div>       
-<br>
+  <br>
+  <span class="error">{{msg}}</span>
+  <br>
+  <div *ngFor="let item of cityData;">
+    <p (click)="onSelect(item)" title="Click to get Weather">
+       {{item.name+", ["+item.sys.country+"]  lon: "+item.coord.lon+", lat: "+item.coord.lat}}</p>
+  </div>       
+  <br>
 
-<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" border="1" class="table table-hover table-condensed">
-  <thead>
-  <tr>
-    <th></th>
-    <th>City</th>
-    <th>Weather</th>
-    <th>Humidity</th>
-    <th>Pressure</th>
-    <th>Temp</th>
-  </tr>
-  </thead>
-  <tbody>
+  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" border="1" class="table table-hover table-condensed">
+    <thead>
+    <tr>
+      <th></th>
+      <th>City</th>
+      <th>Weather</th>
+      <th>Humidity</th>
+      <th>Pressure</th>
+      <th>Temp</th>
+    </tr>
+    </thead>
+    <tbody>
     <tr *ngFor="let item of cityWeather">
       <td></td>
       <td (click)="getFiveDayWeather(item.id)"  title="Click to get next 5 day weather">{{item.name}}</td>
@@ -41,7 +41,7 @@
       <td>{{item.main.pressure}}</td>
       <td>{{item.main.temp}}</td>
     </tr>
-  </tbody>
-</table>
+    </tbody>
+  </table>
 </div>
 

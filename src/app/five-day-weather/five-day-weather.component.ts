@@ -10,6 +10,7 @@ import { Subject } from 'rxjs/Subject';
   styleUrls: ['./five-day-weather.component.css']
 })
 export class FiveDayWeatherComponent implements OnInit, AfterViewInit {
+
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
   dtOptions: any = {};
@@ -25,17 +26,17 @@ export class FiveDayWeatherComponent implements OnInit, AfterViewInit {
   }
   
   public showData(){
-    this.requestData.data1.subscribe(data => {
-      if(data === undefined || data === null){
-       this.router.navigate(['/weather']);
-      }
-      else{
-        this.cityname = data.city.name;
-        this.fiveDayWeather = data.list; 
-      }  
-     
-      
-    })
+    this.requestData.dataFromWeather.subscribe(
+      data => {
+        if(data === undefined || data === null) {
+         this.router.navigate(['/weather']);
+        } else {
+         this.cityname = data.city.name;
+         this.fiveDayWeather = data.list; 
+        }  
+      },
+      error => {}
+    );
   }
 
 
@@ -50,12 +51,11 @@ export class FiveDayWeatherComponent implements OnInit, AfterViewInit {
   }
 
   rerender(): void {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first
-      dtInstance.destroy();
-      // Call the dtTrigger to rerender again
-      this.dtTrigger.next();
-    });
-  }
-  
+    this.dtElement.dtInstance.then(
+      (dtInstance: DataTables.Api) => {
+        dtInstance.destroy();
+        this.dtTrigger.next();
+      }
+    );
+  } 
 }

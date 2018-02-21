@@ -14,8 +14,6 @@ import { Subject } from 'rxjs/Subject';
   styleUrls: ['./weather.component.css']
 })
 export class WeatherComponent implements OnInit {
-
-  constructor(private httpClient:HttpClient, private dataRequest:DataRequestService, private router:Router) {}
   dtTrigger: Subject<any> = new Subject();
   apikey:string = '79cce9d1cd2fb9e584cca5a598f53932';
   toLon:number = 77.2;
@@ -27,7 +25,9 @@ export class WeatherComponent implements OnInit {
   cityWeather:any;
   cityData = [];
   msg:string= "";
- 
+  
+  constructor(private httpClient:HttpClient, private dataRequest:DataRequestService, private router:Router) {}
+  
 
   /**This method is used to get "current weather" data of all city in latitute & longitute circle
    * and getting data from openWeatherMap api. 
@@ -98,12 +98,12 @@ export class WeatherComponent implements OnInit {
     }
   
    //Clean user input
-   getCleanString(cityname){
+   getCleanString(cityname):string {
      return cityname.trim().replace(/(^|\s)\S/g, l => l.toUpperCase());
    }
 
    //To get all city id
-   getCityIds(data){
+   getCityIds(data):any[] {
     var arr=[];
     data.forEach(element => {
       arr.push(element.id);
