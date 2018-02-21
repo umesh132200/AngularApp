@@ -21,6 +21,7 @@ export class WeatherComponent implements OnInit {
   cityId:number = 1261481;
   form:FormGroup;
   dtOptions: any = {};
+  dtInstance:any = {};
   detail1:any;
   cityWeather:any;
   cityData = [];
@@ -37,6 +38,7 @@ export class WeatherComponent implements OnInit {
     .then(
       data => {
         this.cityWeather = data.list;
+        this.dtInstance.DataTable.ngDestroy();
         this.dtTrigger.next();
         this.getDayWise(this.getCityIds(this.cityWeather));
       },
