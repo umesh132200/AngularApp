@@ -30,7 +30,7 @@
       <th>Humidity</th>
       <th>Pressure</th>
       <th>Temp</th>
-      <th>view Detail</th>
+      <th>Next 5 Days</th>
     </tr>
     </thead>
     <tbody>
@@ -41,7 +41,7 @@
       <td>{{ item.main.humidity }}</td>
       <td>{{ item.main.pressure }}</td>
       <td>{{ item.main.temp }}</td>
-      <td> <button (click)="getFiveDayWeather(item.id)" class="btn btn-info">Get Next five day weather</button> </td>
+      <td> <button (click)="getFiveDayWeather(item.id)" class="btn btn-info">Get weather</button> </td>
     </tr>
     </tbody>
   </table>
