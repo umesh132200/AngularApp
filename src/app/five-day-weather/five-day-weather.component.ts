@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { DataRequestService } from './../services/data-request.service';
-import { CanActivate, Router, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
+import { CanActivate, Router, RouterStateSnapshot, ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
 
 @Component({
@@ -17,38 +17,25 @@ export class FiveDayWeatherComponent implements OnInit, AfterViewInit {
   dtTrigger: Subject<any> = new Subject();
   cityname:string;
   fiveDayWeather:any;
-  cn:string;
-  fd:any;
-  constructor(private requestData:DataRequestService, private router:Router) { 
-    let data = JSON.parse(localStorage.getItem('data'));
-    this.cityname = data.city.name;
-    this.fiveDayWeather = data.list;
-  }
+    constructor(private requestData:DataRequestService, private router:Router, private route:ActivatedRoute) {  }
   
-  public showData(){
-    this.requestData.dataFromWeather.subscribe(
-      data => {
+ 
+    takeData(data){
         if(data === undefined || data === null) {
          this.router.navigate(['/weather']);
         } else {
          this.cityname = data.city.name;
          this.fiveDayWeather = data.list; 
-        }  
-      },
-      error => {}
-    );
-  }
+        }   
+    }
 
 
   ngOnInit() {
-    this.dtOptions = {
-      responsive: true
-    };   
+    this.takeData(this.requestData.data);
+    this.dtOptions = { responsive: true };   
   }
 
-  ngAfterViewInit(): void {
-    this.dtTrigger.next();
-  }
+  ngAfterViewInit(): void { this.dtTrigger.next();}
 
   rerender(): void {
     this.dtElement.dtInstance.then(

@@ -30,19 +30,20 @@
       <th>Humidity</th>
       <th>Pressure</th>
       <th>Temp</th>
+      <th>view Detail</th>
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let item of cityWeather; let i = index" (click)="getFiveDayWeather(item.id)"  title="Click to get next 5 day weather">
-      <td (click)="$event.stopPrapogation();">{{i + 1 }}</td>
-      <td>{{item.name}}</td>
-      <td>{{item.weather[0].description}}</td>
-      <td>{{item.main.humidity}}</td>
-      <td>{{item.main.pressure}}</td>
-      <td>{{item.main.temp}}</td>
+    <tr *ngFor="let item of cityWeather; let i = index" title="Click to get next 5 day weather">
+      <td>{{ i + 1 }}</td>
+      <td>{{ item.name }}</td>
+      <td>{{ item.weather[0].description }}</td>
+      <td>{{ item.main.humidity }}</td>
+      <td>{{ item.main.pressure }}</td>
+      <td>{{ item.main.temp }}</td>
+      <td> <button (click)="getFiveDayWeather(item.id)" class="btn btn-info">Get Next five day weather</button> </td>
     </tr>
     </tbody>
   </table>
-
 </div>
 

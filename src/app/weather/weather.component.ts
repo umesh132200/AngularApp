@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { forkJoin } from 'rxjs/observable/forkJoin'; //used to get multiple response from different url.
 import { DataRequestService } from './../services/data-request.service' //this file contaile js promise to get city record.
 import * as xml2js from 'xml2js';
-import { CanActivate, Router, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
+import { CanActivate, Router, RouterStateSnapshot, ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subject } from 'rxjs/Subject';
 
@@ -26,7 +26,7 @@ export class WeatherComponent implements OnInit {
   cityData = [];
   msg:string= "";
   
-  constructor(private httpClient:HttpClient, private dataRequest:DataRequestService, private router:Router) {}
+  constructor(private httpClient:HttpClient, private dataRequest:DataRequestService, private router:Router, private route:ActivatedRoute) {}
   
 
   /**This method is used to get "current weather" data of all city in latitute & longitute circle
@@ -38,37 +38,17 @@ export class WeatherComponent implements OnInit {
       data => {
         this.cityWeather = data.list;
         this.dtTrigger.next();
-        this.getDayWise(this.getCityIds(this.cityWeather));
       },
       error => {this.handleError}
     ).catch(this.handleError);
   }
 
-   
-  /**This method is used to get "5 day/ 3 hour weather" data of selected city
-   * and getting data from openWeatherMap api. 
-   */
-  getDayWise(id) {
-    this.dataRequest.getResult(id) 
-    .subscribe(
-      data => this.detail1 = data,
-      error => this.handleError
-    );        
-  }
-  
-
   /**
    * This method is used to send data weather component
    * to five-day-weather component via service.
    */
-  getFiveDayWeather(id){
-    this.detail1.forEach(element => {
-      if(element.city.id === id) {
-        this.dataRequest.dataCast(element);
-        this.router.navigate(['/five-day-weather']);
-      }
-    });
-    
+  getFiveDayWeather(id) {
+    this.dataRequest.getResult(id);
   }
   
   /**This method is used to search city name from local json file 
@@ -128,9 +108,15 @@ export class WeatherComponent implements OnInit {
    this.getWeather();
   }
   
+  
+
   ngOnInit() {   
     this.getWeather(); //onLoad current city weather.
     
+    // this.route.params.subscribe(data =>{
+    // //console.log(data);
+    // }); 
+
     //For datatable responsive
     this.dtOptions = { 
       retrieve: true,
