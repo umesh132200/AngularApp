@@ -32,7 +32,7 @@ export class FiveDayWeatherComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.takeData(this.requestData.data);
-    this.dtOptions = { responsive: true };   
+    this.dtOptions = { responsive: true,stateSave: true };   
   }
 
   ngAfterViewInit(): void { this.dtTrigger.next();}
