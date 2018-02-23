@@ -41,7 +41,7 @@
       <td>{{ item.main.humidity }}</td>
       <td>{{ item.main.pressure }}</td>
       <td>{{ item.main.temp }}</td>
-      <td> <button (click)="getFiveDayWeather(item.id)" class="btn btn-info" title="Click to get next 5 day weather">Get weather</button> </td>
+      <td> <button data-id="{{ item.id }}" class="btn btn-info" title="Click to get next 5 day weather">Get weather</button> </td>
     </tr>
     </tbody>
   </table>
