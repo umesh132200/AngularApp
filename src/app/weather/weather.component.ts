@@ -16,9 +16,6 @@ import { Subject } from 'rxjs/Subject';
 export class WeatherComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject();
   apikey:string = '79cce9d1cd2fb9e584cca5a598f53932';
-  toLon:number = 77.2;
-  toLat:number = 28.6;
-  cityId:number = 1261481;
   form:FormGroup;
   dtOptions: any = {};
   detail1:any;
@@ -32,8 +29,8 @@ export class WeatherComponent implements OnInit {
   /**This method is used to get "current weather" data of all city in latitute & longitute circle
    * and getting data from openWeatherMap api. 
    */
-  getWeather() {
-    this.dataRequest.sendRequest('https://api.openweathermap.org/data/2.5/find?lat='+this.toLat+'&lon='+this.toLon+'&cnt=40&appid='+this.apikey)
+  getWeather(toLon:number, toLat:number) {
+    this.dataRequest.sendRequest('https://api.openweathermap.org/data/2.5/find?lat='+toLat+'&lon='+toLon+'&cnt=40&appid='+this.apikey)
     .then(
       data => {
         this.cityWeather = data.list;
@@ -101,18 +98,19 @@ export class WeatherComponent implements OnInit {
    * and request for current weather data from openWeatherMap api 
    */
   onSelect(selectData) {
-   this.cityId = selectData.id;
    let lon:string = parseFloat(selectData.coord.lon).toFixed(4);
    let lat:string = parseFloat(selectData.coord.lat).toFixed(4);
-   this.toLon = parseFloat(lon);
-   this.toLat = parseFloat(lat);
-   this.getWeather();
+   const toLon = parseFloat(lon);
+   const toLat = parseFloat(lat);
+   this.getWeather(toLon, toLat);
   }
   
   
 
-  ngOnInit() {   
-    this.getWeather(); //onLoad current city weather.
+  ngOnInit() {  
+    const lon:number = 77.2;
+    const lat:number = 28.6; 
+    this.getWeather(lon, lat); //onLoad current city weather.
 
     //listing button click for get weather detail
     const self = this;
