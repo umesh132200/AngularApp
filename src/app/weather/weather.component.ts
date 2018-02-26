@@ -8,7 +8,6 @@ import { CanActivate, Router, RouterStateSnapshot, ActivatedRouteSnapshot, Activ
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subject } from 'rxjs/Subject';
 import { DataTableDirective } from 'angular-datatables';
-import { setTimeout } from 'timers';
 
 @Component({
   selector: 'app-weather',
