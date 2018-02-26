@@ -26,7 +26,7 @@ export class WeatherComponent implements OnInit {
   cityData = [];
   msg:string= "";
   
-  constructor(private httpClient:HttpClient, private dataRequest:DataRequestService, private router:Router, private route:ActivatedRoute) {}
+  constructor(private httpClient:HttpClient, private dataRequest:DataRequestService, private router:Router, private route:ActivatedRoute) { }
   
 
   /**This method is used to get "current weather" data of all city in latitute & longitute circle
@@ -50,6 +50,7 @@ export class WeatherComponent implements OnInit {
   getFiveDayWeather(id) {
     this.dataRequest.getResult(id);
   }
+  
   
   /**This method is used to search city name from local json file 
    * and get detail of the city like id, name, country and coord. 
@@ -112,10 +113,12 @@ export class WeatherComponent implements OnInit {
 
   ngOnInit() {   
     this.getWeather(); //onLoad current city weather.
-    
-    // this.route.params.subscribe(data =>{
-    // //console.log(data);
-    // }); 
+
+    //listing button click for get weather detail
+    const self = this;
+     $('table').on('click','.btn-info', function(event){
+      self.getFiveDayWeather(event.target.id);
+     });
 
     //For datatable responsive
     this.dtOptions = { 
