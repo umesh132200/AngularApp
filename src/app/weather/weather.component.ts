@@ -1,4 +1,4 @@
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { forkJoin } from 'rxjs/observable/forkJoin'; //used to get multiple response from different url.
@@ -7,6 +7,8 @@ import * as xml2js from 'xml2js';
 import { CanActivate, Router, RouterStateSnapshot, ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subject } from 'rxjs/Subject';
+import { DataTableDirective } from 'angular-datatables';
+import { setTimeout } from 'timers';
 
 @Component({
   selector: 'app-weather',
@@ -14,10 +16,12 @@ import { Subject } from 'rxjs/Subject';
   styleUrls: ['./weather.component.css']
 })
 export class WeatherComponent implements OnInit {
+  @ViewChild(DataTableDirective)
+  dtElement: DataTableDirective;
+  dtOptions: any = {};
   dtTrigger: Subject<any> = new Subject();
   apikey:string = '79cce9d1cd2fb9e584cca5a598f53932';
   form:FormGroup;
-  dtOptions: any = {};
   detail1:any;
   cityWeather:any;
   cityData = [];
@@ -34,7 +38,7 @@ export class WeatherComponent implements OnInit {
     .then(
       data => {
         this.cityWeather = data.list;
-        this.dtTrigger.next();
+        this.dtTrigger.next(); 
       },
       error => {this.handleError}
     ).catch(this.handleError);
@@ -101,8 +105,15 @@ export class WeatherComponent implements OnInit {
    let lon:string = parseFloat(selectData.coord.lon).toFixed(4);
    let lat:string = parseFloat(selectData.coord.lat).toFixed(4);
    const toLon = parseFloat(lon);
-   const toLat = parseFloat(lat);
-   this.getWeather(toLon, toLat);
+   const toLat = parseFloat(lat); 
+
+   this.dtElement.dtInstance.then(
+    (dtInstance: DataTables.Api) => {
+      dtInstance.destroy();
+      this.getWeather(toLon, toLat);
+    }
+   );
+   
   }
   
   
@@ -114,7 +125,7 @@ export class WeatherComponent implements OnInit {
 
     //listing button click for get weather detail
     const self = this;
-     $('table').on('click','.btn-info', function(event){
+     $('table').on('click','.btn-info', function(event) {
       self.getFiveDayWeather(event.target.id);
      });
 
@@ -124,10 +135,10 @@ export class WeatherComponent implements OnInit {
       responsive: true
     }; 
 
+
     //To validate the search box
     this.form = new FormGroup({
       cityname : new FormControl("", Validators.compose([Validators.required])) 
     });
   }
-
 }
