@@ -6,13 +6,6 @@
   background-color:yellowgreen;
 }
 
-table > tbody > tr {
-  cursor:pointer;
-}
-
-td.sorting_1::before{
-  cursor: n-resize;
-}
 #tData {
   /* display: none; */
   background-color: yellow;

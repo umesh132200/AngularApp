@@ -26,9 +26,9 @@
       <th>#</th>
       <th>City</th>
       <th>Weather</th>
+      <th>Temp</th>
       <th>Humidity</th>
       <th>Pressure</th>
-      <th>Temp</th>
       <th>Next 5 Days</th>
     </tr>
     </thead>
@@ -37,9 +37,9 @@
       <td>{{ i + 1 }}</td>
       <td>{{ item.name }}</td>
       <td>{{ item.weather[0].description }}</td>
-      <td>{{ item.main.humidity }}</td>
-      <td>{{ item.main.pressure }}</td>
       <td>{{ item.main.temp }}</td>
+      <td>{{ item.main.humidity }}</td>
+      <td>{{ item.main.pressure }}</td>   
       <td> <button data-id="{{ item.id }}" class="btn btn-info" title="Click to get next 5 day weather">Get weather</button> </td>
     </tr>
     </tbody>

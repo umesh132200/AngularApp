@@ -121,7 +121,8 @@ export class WeatherComponent implements OnInit {
     //For datatable responsive
     this.dtOptions = { 
       retrieve: true,
-      responsive: true }; 
+      responsive: true
+    }; 
 
     //To validate the search box
     this.form = new FormGroup({
