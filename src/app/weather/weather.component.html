@@ -37,7 +37,7 @@
       <td>{{ i + 1 }}</td>
       <td>{{ item.name }}</td>
       <td>{{ item.weather[0].description }}</td>
-      <td>{{ item.main.temp }}</td>
+      <td>{{ item.main.temp - 273.15 | number: '1.0-0' }}{{" °C"}}</td>
       <td>{{ item.main.humidity }}</td>
       <td>{{ item.main.pressure }}</td>   
       <td> <button data-id="{{ item.id }}" class="btn btn-info" title="Click to get next 5 day weather">Get weather</button> </td>

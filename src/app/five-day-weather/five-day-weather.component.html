@@ -10,8 +10,10 @@
         <tbody>
           <tr *ngFor="let item of fiveDayWeather; let i = index">
             <td>{{i + 1}}</td>
-            <td>{{item.dt_txt}}</td><td>{{item.weather[0].description}}</td>
-            <td>{{item.main.temp}}</td><td>{{item.main.temp_min}}</td>
+            <td>{{item.dt_txt | date:'medium'}}</td>
+            <td>{{item.weather[0].description}}</td>
+            <td>{{item.main.temp - 273.15 | number: '1.0-0'}}{{" °C"}}</td>
+            <td>{{item.main.temp_min - 273.15 | number: '1.0-0'}}{{" °C"}}</td>
             <td>{{item.main.pressure}}</td>
           </tr>
         </tbody>

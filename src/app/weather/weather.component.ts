@@ -50,8 +50,7 @@ export class WeatherComponent implements OnInit {
   getFiveDayWeather(id) {
     this.dataRequest.getResult(id);
   }
-  
-  
+   
   /**This method is used to search city name from local json file 
    * and get detail of the city like id, name, country and coord. 
    */
