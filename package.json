@@ -24,6 +24,7 @@
     "angular-4-data-table": "^0.4.3",
     "angular-datatables": "^5.0.0",
     "angular-font-awesome": "^3.1.2",
+    "body-parser": "^1.18.2",
     "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
     "datatables.net": "^1.10.16",
@@ -31,9 +32,12 @@
     "datatables.net-dt": "^1.10.16",
     "datatables.net-responsive": "^2.2.1",
     "datatables.net-responsive-dt": "^2.2.1",
+    "express": "^4.16.2",
     "fontawesome-web": "^5.0.2",
     "jquery": "^3.2.1",
+    "morgan": "^1.9.0",
     "rxjs": "^5.5.6",
+    "serve-favicon": "^2.4.5",
     "zone.js": "^0.8.19"
   },
   "devDependencies": {

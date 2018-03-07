@@ -11,7 +11,9 @@ import { WeatherComponent } from './weather/weather.component';
 import { AboutComponent } from './about/about.component';
 import { FiveDayWeatherComponent } from './five-day-weather/five-day-weather.component';
 
+
 import { DataRequestService } from './services/data-request.service';
+
 
 
 
@@ -31,7 +33,8 @@ import { DataRequestService } from './services/data-request.service';
     RouterModule.forRoot([{ path: '',   redirectTo: '/weather', pathMatch: 'full' },
     {path:'weather', component: WeatherComponent},
     {path:'about', component: AboutComponent},
-    {path:'five-day-weather', component: FiveDayWeatherComponent}])
+    {path:'five-day-weather', component: FiveDayWeatherComponent}
+  ])
   ],
   providers: [DataRequestService],
   bootstrap: [AppComponent]
