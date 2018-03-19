@@ -36,6 +36,7 @@
     "fontawesome-web": "^5.0.2",
     "intl": "^1.2.5",
     "jquery": "^3.2.1",
+    "moment": "^2.21.0",
     "morgan": "^1.9.0",
     "rxjs": "^5.5.6",
     "serve-favicon": "^2.4.5",

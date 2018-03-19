@@ -14,6 +14,9 @@ import { FiveDayWeatherComponent } from './five-day-weather/five-day-weather.com
 
 import { DataRequestService } from './services/data-request.service';
 
+import { DateTimeFormatFilterPipe } from './pipes/date-time-format-filter.pipe';
+
+
 
 
 
@@ -22,7 +25,8 @@ import { DataRequestService } from './services/data-request.service';
     AppComponent,
     WeatherComponent,
     AboutComponent,
-    FiveDayWeatherComponent
+    FiveDayWeatherComponent,
+    DateTimeFormatFilterPipe
   ],
   imports: [
     HttpClientModule,
